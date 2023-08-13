@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "Virta API",
-        "_postman_id": "145d7828-f6b4-4a8e-ba73-d723921c593a",
+        "_postman_id": "24c34e5b-3228-4adf-8abe-8bc04cd5d8ad",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -39,7 +39,10 @@
                                 "value": "application\/json"
                             }
                         ],
-                        "body": null,
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"page\":2}"
+                        },
                         "description": "",
                         "auth": {
                             "type": "noauth"
@@ -57,20 +60,12 @@
                                     "value": "application\/json"
                                 },
                                 {
-                                    "key": "x-ratelimit-limit",
-                                    "value": "60"
-                                },
-                                {
-                                    "key": "x-ratelimit-remaining",
-                                    "value": "57"
-                                },
-                                {
                                     "key": "access-control-allow-origin",
                                     "value": "*"
                                 }
                             ],
-                            "code": 200,
-                            "body": "{\"data\":[{\"id\":1,\"name\":\"Company 1\",\"descendents\":[2,3,1],\"parent\":null},{\"id\":2,\"name\":\"Company 2\",\"descendents\":[3,2],\"parent\":{\"id\":1,\"name\":\"Company 1\",\"descendents\":[2,3,1],\"parent\":null}},{\"id\":3,\"name\":\"Company 3\",\"parent\":{\"id\":2,\"name\":\"Company 2\",\"descendents\":[3,2],\"parent\":{\"id\":1,\"name\":\"Company 1\",\"descendents\":[2,3,1],\"parent\":null}}}],\"links\":{\"first\":\"http:\\\/\\\/localhost\\\/api\\\/v1\\\/companies?page=1\",\"last\":\"http:\\\/\\\/localhost\\\/api\\\/v1\\\/companies?page=1\",\"prev\":null,\"next\":null},\"meta\":{\"current_page\":1,\"from\":1,\"last_page\":1,\"links\":[{\"url\":null,\"label\":\"&laquo; Previous\",\"active\":false},{\"url\":\"http:\\\/\\\/localhost\\\/api\\\/v1\\\/companies?page=1\",\"label\":\"1\",\"active\":true},{\"url\":null,\"label\":\"Next &raquo;\",\"active\":false}],\"path\":\"http:\\\/\\\/localhost\\\/api\\\/v1\\\/companies\",\"per_page\":100,\"to\":3,\"total\":3}}",
+                            "code": 500,
+                            "body": "{\"message\":\"Server error\",\"code\":0,\"error_message\":\"Target [App\\\\Modules\\\\Company\\\\Contracts\\\\CompanyRepositoryInterface] is not instantiable while building [Knuckles\\\\Scribe\\\\Commands\\\\GenerateDocumentation, App\\\\Modules\\\\Company\\\\Controllers\\\\Api\\\\V1\\\\CompanyController, App\\\\Modules\\\\Company\\\\Services\\\\CompanyUpdater].\"}",
                             "name": ""
                         }
                     ]
@@ -97,7 +92,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"name\":\"unde\",\"parent_company_id\":6}"
+                            "raw": "{\"name\":\"odio\",\"parent_company_id\":8}"
                         },
                         "description": "",
                         "auth": {
@@ -118,7 +113,7 @@
                                 {
                                     "id": "company",
                                     "key": "company",
-                                    "value": "15",
+                                    "value": "19",
                                     "description": "The ID of the company."
                                 }
                             ]
@@ -152,20 +147,12 @@
                                     "value": "application\/json"
                                 },
                                 {
-                                    "key": "x-ratelimit-limit",
-                                    "value": "60"
-                                },
-                                {
-                                    "key": "x-ratelimit-remaining",
-                                    "value": "56"
-                                },
-                                {
                                     "key": "access-control-allow-origin",
                                     "value": "*"
                                 }
                             ],
-                            "code": 404,
-                            "body": "{\"message\":\"Not found\",\"code\":0,\"error_message\":\"No query results for model [App\\\\Modules\\\\Company\\\\Models\\\\Company] 15\"}",
+                            "code": 500,
+                            "body": "{\"message\":\"Server error\",\"code\":0,\"error_message\":\"Target [App\\\\Modules\\\\Company\\\\Contracts\\\\CompanyRepositoryInterface] is not instantiable while building [Knuckles\\\\Scribe\\\\Commands\\\\GenerateDocumentation, App\\\\Modules\\\\Company\\\\Controllers\\\\Api\\\\V1\\\\CompanyController, App\\\\Modules\\\\Company\\\\Services\\\\CompanyUpdater].\"}",
                             "name": ""
                         }
                     ]
@@ -182,7 +169,7 @@
                                 {
                                     "id": "company",
                                     "key": "company",
-                                    "value": "19",
+                                    "value": "12",
                                     "description": "The ID of the company."
                                 }
                             ]
@@ -200,7 +187,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"name\":\"illum\",\"parent_company_id\":18}"
+                            "raw": "{\"name\":\"ut\",\"parent_company_id\":12}"
                         },
                         "description": "",
                         "auth": {
@@ -221,7 +208,7 @@
                                 {
                                     "id": "company",
                                     "key": "company",
-                                    "value": "2",
+                                    "value": "14",
                                     "description": "The ID of the company."
                                 }
                             ]
@@ -327,7 +314,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"latitude\":-90,\"longitude\":-179,\"company_id\":3,\"radius\":12}"
+                            "raw": "{\"latitude\":-90,\"longitude\":-180,\"company_id\":5,\"radius\":1,\"page\":8}"
                         },
                         "description": "",
                         "auth": {
@@ -356,7 +343,10 @@
                                 "value": "application\/json"
                             }
                         ],
-                        "body": null,
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"page\":7}"
+                        },
                         "description": "",
                         "auth": {
                             "type": "noauth"
@@ -374,20 +364,12 @@
                                     "value": "application\/json"
                                 },
                                 {
-                                    "key": "x-ratelimit-limit",
-                                    "value": "60"
-                                },
-                                {
-                                    "key": "x-ratelimit-remaining",
-                                    "value": "59"
-                                },
-                                {
                                     "key": "access-control-allow-origin",
                                     "value": "*"
                                 }
                             ],
-                            "code": 200,
-                            "body": "{\"data\":[{\"id\":2,\"name\":\"Station 2\",\"latitude\":\"-3.00000000\",\"longitude\":\"179.00000000\",\"address\":\"Lun3ca\",\"company\":{\"id\":1,\"name\":\"Company 1\",\"descendents\":[2,3,1],\"parent\":null}},{\"id\":4,\"name\":\"Station 4\",\"latitude\":\"-31.00000000\",\"longitude\":\"171.00000000\",\"address\":\"Lun3ca\",\"company\":{\"id\":1,\"name\":\"Company 1\",\"descendents\":[2,3,1],\"parent\":null}},{\"id\":5,\"name\":\"Station 5\",\"latitude\":\"-30.00000000\",\"longitude\":\"170.00000000\",\"address\":\"Lun3ca\",\"company\":{\"id\":1,\"name\":\"Company 1\",\"descendents\":[2,3,1],\"parent\":null}},{\"id\":6,\"name\":\"Station 6\",\"latitude\":\"-29.00000000\",\"longitude\":\"169.00000000\",\"address\":\"Lun3ca\",\"company\":{\"id\":1,\"name\":\"Company 1\",\"descendents\":[2,3,1],\"parent\":null}},{\"id\":7,\"name\":\"Station 7\",\"latitude\":\"-28.00000000\",\"longitude\":\"168.00000000\",\"address\":\"Lun3ca\",\"company\":{\"id\":1,\"name\":\"Company 1\",\"descendents\":[2,3,1],\"parent\":null}},{\"id\":8,\"name\":\"Station 8\",\"latitude\":\"-27.00000000\",\"longitude\":\"166.00000000\",\"address\":\"Lun3ca\",\"company\":{\"id\":1,\"name\":\"Company 1\",\"descendents\":[2,3,1],\"parent\":null}},{\"id\":9,\"name\":\"Station 9\",\"latitude\":\"-24.00000000\",\"longitude\":\"161.00000000\",\"address\":\"Lun3ca\",\"company\":{\"id\":1,\"name\":\"Company 1\",\"descendents\":[2,3,1],\"parent\":null}},{\"id\":10,\"name\":\"Station 10\",\"latitude\":\"-21.00000000\",\"longitude\":\"160.00000000\",\"address\":\"Lun3ca\",\"company\":{\"id\":1,\"name\":\"Company 1\",\"descendents\":[2,3,1],\"parent\":null}},{\"id\":11,\"name\":\"Station 1\",\"latitude\":\"-10.00000000\",\"longitude\":\"10.00000000\",\"address\":\"Dumbrava\",\"company\":{\"id\":2,\"name\":\"Company 2\",\"descendents\":[3,2],\"parent\":{\"id\":1,\"name\":\"Company 1\",\"descendents\":[2,3,1],\"parent\":null}}},{\"id\":12,\"name\":\"Station 2\",\"latitude\":\"-11.00000000\",\"longitude\":\"15.00000000\",\"address\":\"Dumbrava\",\"company\":{\"id\":2,\"name\":\"Company 2\",\"descendents\":[3,2],\"parent\":{\"id\":1,\"name\":\"Company 1\",\"descendents\":[2,3,1],\"parent\":null}}},{\"id\":13,\"name\":\"Station 3\",\"latitude\":\"-13.00000000\",\"longitude\":\"18.00000000\",\"address\":\"Dumbrava\",\"company\":{\"id\":2,\"name\":\"Company 2\",\"descendents\":[3,2],\"parent\":{\"id\":1,\"name\":\"Company 1\",\"descendents\":[2,3,1],\"parent\":null}}},{\"id\":14,\"name\":\"Station 4\",\"latitude\":\"-19.00000000\",\"longitude\":\"10.00000000\",\"address\":\"Dumbrava\",\"company\":{\"id\":2,\"name\":\"Company 2\",\"descendents\":[3,2],\"parent\":{\"id\":1,\"name\":\"Company 1\",\"descendents\":[2,3,1],\"parent\":null}}},{\"id\":15,\"name\":\"Station 5\",\"latitude\":\"-15.00000000\",\"longitude\":\"10.00000000\",\"address\":\"Dumbrava\",\"company\":{\"id\":2,\"name\":\"Company 2\",\"descendents\":[3,2],\"parent\":{\"id\":1,\"name\":\"Company 1\",\"descendents\":[2,3,1],\"parent\":null}}},{\"id\":16,\"name\":\"Station 1\",\"latitude\":\"-55.00000000\",\"longitude\":\"50.00000000\",\"address\":\"Martieni\",\"company\":{\"id\":3,\"name\":\"Company 3\",\"parent\":{\"id\":2,\"name\":\"Company 2\",\"descendents\":[3,2],\"parent\":{\"id\":1,\"name\":\"Company 1\",\"descendents\":[2,3,1],\"parent\":null}}}},{\"id\":17,\"name\":\"Station 2\",\"latitude\":\"-50.00000000\",\"longitude\":\"45.00000000\",\"address\":\"Martieni\",\"company\":{\"id\":3,\"name\":\"Company 3\",\"parent\":{\"id\":2,\"name\":\"Company 2\",\"descendents\":[3,2],\"parent\":{\"id\":1,\"name\":\"Company 1\",\"descendents\":[2,3,1],\"parent\":null}}}}],\"links\":{\"first\":\"http:\\\/\\\/localhost\\\/api\\\/v1\\\/stations?page=1\",\"last\":\"http:\\\/\\\/localhost\\\/api\\\/v1\\\/stations?page=1\",\"prev\":null,\"next\":null},\"meta\":{\"current_page\":1,\"from\":1,\"last_page\":1,\"links\":[{\"url\":null,\"label\":\"&laquo; Previous\",\"active\":false},{\"url\":\"http:\\\/\\\/localhost\\\/api\\\/v1\\\/stations?page=1\",\"label\":\"1\",\"active\":true},{\"url\":null,\"label\":\"Next &raquo;\",\"active\":false}],\"path\":\"http:\\\/\\\/localhost\\\/api\\\/v1\\\/stations\",\"per_page\":100,\"to\":15,\"total\":15}}",
+                            "code": 500,
+                            "body": "{\"message\":\"Server error\",\"code\":0,\"error_message\":\"Target [App\\\\Modules\\\\Station\\\\Contracts\\\\StationRepositoryInterface] is not instantiable while building [Knuckles\\\\Scribe\\\\Commands\\\\GenerateDocumentation, App\\\\Modules\\\\Station\\\\Controllers\\\\Api\\\\V1\\\\StationController, App\\\\Modules\\\\Station\\\\Services\\\\StationUpdater].\"}",
                             "name": ""
                         }
                     ]
@@ -414,7 +396,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"name\":\"et\",\"latitude\":-89,\"longitude\":-179,\"company_id\":11,\"address\":\"totam\"}"
+                            "raw": "{\"name\":\"et\",\"latitude\":-89,\"longitude\":-179,\"company_id\":10,\"address\":\"non\"}"
                         },
                         "description": "",
                         "auth": {
@@ -435,7 +417,7 @@
                                 {
                                     "id": "station",
                                     "key": "station",
-                                    "value": "20",
+                                    "value": "17",
                                     "description": "The ID of the station."
                                 }
                             ]
@@ -469,20 +451,12 @@
                                     "value": "application\/json"
                                 },
                                 {
-                                    "key": "x-ratelimit-limit",
-                                    "value": "60"
-                                },
-                                {
-                                    "key": "x-ratelimit-remaining",
-                                    "value": "58"
-                                },
-                                {
                                     "key": "access-control-allow-origin",
                                     "value": "*"
                                 }
                             ],
-                            "code": 404,
-                            "body": "{\"message\":\"Not found\",\"code\":0,\"error_message\":\"No query results for model [App\\\\Modules\\\\Station\\\\Models\\\\Station] 20\"}",
+                            "code": 500,
+                            "body": "{\"message\":\"Server error\",\"code\":0,\"error_message\":\"Target [App\\\\Modules\\\\Station\\\\Contracts\\\\StationRepositoryInterface] is not instantiable while building [Knuckles\\\\Scribe\\\\Commands\\\\GenerateDocumentation, App\\\\Modules\\\\Station\\\\Controllers\\\\Api\\\\V1\\\\StationController, App\\\\Modules\\\\Station\\\\Services\\\\StationUpdater].\"}",
                             "name": ""
                         }
                     ]
@@ -499,7 +473,7 @@
                                 {
                                     "id": "station",
                                     "key": "station",
-                                    "value": "18",
+                                    "value": "17",
                                     "description": "The ID of the station."
                                 }
                             ]
@@ -517,7 +491,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"name\":\"temporibus\",\"latitude\":-89,\"longitude\":-179,\"company_id\":5,\"address\":\"accusamus\"}"
+                            "raw": "{\"name\":\"reiciendis\",\"latitude\":-90,\"longitude\":-180,\"company_id\":14,\"address\":\"eligendi\",\"station\":19}"
                         },
                         "description": "",
                         "auth": {
@@ -538,7 +512,7 @@
                                 {
                                     "id": "station",
                                     "key": "station",
-                                    "value": "19",
+                                    "value": "6",
                                     "description": "The ID of the station."
                                 }
                             ]

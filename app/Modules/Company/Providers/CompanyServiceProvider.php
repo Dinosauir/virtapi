@@ -2,7 +2,7 @@
 
 namespace App\Modules\Company\Providers;
 
-use App\Modules\Company\Contracts\CacheResponseServiceInterface;
+use App\Modules\Company\Contracts\CompanyCacheResponseServiceInterface;
 use App\Modules\Company\Contracts\CompanyRepositoryInterface;
 use App\Modules\Company\Controllers\Api\V1\CompanyController;
 use App\Modules\Company\Models\Company;
@@ -11,7 +11,7 @@ use App\Modules\Company\Repositories\CompanyRepository;
 use App\Modules\Company\Services\AbstractCompanyCreator;
 use App\Modules\Company\Services\AbstractCompanyDestroyer;
 use App\Modules\Company\Services\AbstractCompanyUpdater;
-use App\Modules\Company\Services\CacheResponseService;
+use App\Modules\Company\Services\CompanyCacheResponseService;
 use App\Modules\Company\Services\CompanyCreator;
 use App\Modules\Company\Services\CompanyDestroyer;
 use App\Modules\Company\Services\CompanyUpdater;
@@ -41,20 +41,14 @@ final class CompanyServiceProvider extends ServiceProvider
             });
 
         $this->app->when(CompanyController::class)
-            ->needs(CompanyRepositoryInterface::class)
+            ->needs(CompanyCacheResponseServiceInterface::class)
             ->give(static function (Application $app) {
-                return $app->make(CompanyRepository::class);
-            });
-
-        $this->app->when(CompanyController::class)
-            ->needs(CacheResponseServiceInterface::class)
-            ->give(static function (Application $app) {
-                return $app->make(CacheResponseService::class);
+                return $app->make(CompanyCacheResponseService::class);
             });
 
         // CONTROLLERS
 
-        $this->app->when(CacheResponseService::class)
+        $this->app->when(CompanyCacheResponseService::class)
             ->needs(CompanyRepositoryInterface::class)
             ->give(static function (Application $app) {
                 return $app->make(CompanyRepository::class);

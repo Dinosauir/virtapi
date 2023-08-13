@@ -30,7 +30,7 @@ final class StationRepository implements StationRepositoryInterface
         return $station;
     }
 
-    public function getAllStations(string $page = "1"): LengthAwarePaginator
+    public function getAllStations(int $page): LengthAwarePaginator
     {
         $taggedCache = $this->getCacheTags();
 

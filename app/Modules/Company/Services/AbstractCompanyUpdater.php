@@ -5,15 +5,22 @@ declare(strict_types=1);
 
 namespace App\Modules\Company\Services;
 
+use App\Modules\Company\Contracts\CompanyRepositoryInterface;
 use App\Modules\Company\Data\CompanyUpdateData;
 use App\Modules\Company\Models\Company;
 
 abstract class AbstractCompanyUpdater
 {
-    final public function update(Company $company, CompanyUpdateData $data): Company
+    public function __construct(protected readonly CompanyRepositoryInterface $companyRepository)
+    {
+    }
+
+    final public function update(CompanyUpdateData $data): Company
     {
         $this->validate($data);
 
+        $company = $this->companyRepository->getCompany($data->id);
+        
         $model = $this->updateModel($company, $data);
 
         $model->save();

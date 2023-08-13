@@ -80,7 +80,7 @@ final class CompanyTest extends TestCase
         $this->assertEquals(null, $data->parent_company_id);
         $this->assertEquals(['id' => $company->id, 'name' => $newName, 'parent_company_id' => null], $data->toArray());
 
-        $company = $this->companyUpdater->update($company, $data);
+        $company = $this->companyUpdater->update($data);
 
         $this->assertEquals(1, $company->id);
         $this->assertEquals(null, $company->parent_company_id);
@@ -94,7 +94,7 @@ final class CompanyTest extends TestCase
         $data = $this->createCompanyData($name);
         $company = $this->createCompany($name, $data);
 
-        $response = $this->companyDestroyer->destroy($company);
+        $response = $this->companyDestroyer->destroy($company->id);
 
         $this->assertTrue($response);
     }
@@ -113,10 +113,10 @@ final class CompanyTest extends TestCase
         );
 
 
-        $response = $this->companyDestroyer->destroy($company);
+        $response = $this->companyDestroyer->destroy($company->id);
         $this->assertTrue($response);
 
-        $response = $this->companyDestroyer->destroy($company2);
+        $response = $this->companyDestroyer->destroy($company2->id);
         $this->assertTrue($response);
     }
 
@@ -139,7 +139,7 @@ final class CompanyTest extends TestCase
         $data = $this->createCompanyData($name);
         $company = $this->createCompany($name, $data);
 
-        $paginator = $this->companyRepository->getAllCompanies();
+        $paginator = $this->companyRepository->getAllCompanies(1);
 
         $this->assertCount(1, $paginator);
     }

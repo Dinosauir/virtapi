@@ -15,5 +15,5 @@ interface StationRepositoryInterface
 
     public function getStationsInRadius(array $descendents, StationSearchData $data): LengthAwarePaginator;
 
-    public function getAllStations(string $page = "1"): LengthAwarePaginator;
+    public function getAllStations(int $page): LengthAwarePaginator;
 }

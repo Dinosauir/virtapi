@@ -5,6 +5,7 @@ namespace App\Modules\Station\Requests;
 use App\Modules\Company\Models\Company;
 use App\Modules\Shared\Requests\AbstractFormRequest;
 use App\Modules\Station\Data\StationUpdateData;
+use App\Modules\Station\Models\Station;
 use App\Modules\Station\ValueObjects\LatitudeValueObject;
 use App\Modules\Station\ValueObjects\LongitudeValueObject;
 
@@ -17,14 +18,15 @@ final class StationUpdateRequest extends AbstractFormRequest
             'latitude' => 'required|numeric|between:-90,90',
             'longitude' => 'required|numeric|between:-180,180',
             'company_id' => 'required|int|exists:'.Company::class.',id',
-            'address' => 'required|string'
+            'address' => 'required|string',
+            'station' => 'required|int|exists:'.Station::class.',id'
         ];
     }
 
     public function toData(): StationUpdateData
     {
         return new StationUpdateData(
-            id: (int)$this->input('station'),
+            id: $this->input('station'),
             name: $this->input('name'),
             latitude: LatitudeValueObject::make($this->input('latitude')),
             longitude: LongitudeValueObject::make($this->input('longitude')),

@@ -4,7 +4,7 @@ namespace App\Modules\Station\Providers;
 
 use App\Modules\Company\Contracts\CompanyRepositoryInterface;
 use App\Modules\Company\Repositories\CompanyRepository;
-use App\Modules\Station\Contracts\CacheResponseServiceInterface;
+use App\Modules\Station\Contracts\StationCacheResponseServiceInterface;
 use App\Modules\Station\Contracts\StationRepositoryInterface;
 use App\Modules\Station\Contracts\StationSearcherInterface;
 use App\Modules\Station\Controllers\Api\V1\StationController;
@@ -14,7 +14,7 @@ use App\Modules\Station\Repositories\StationRepository;
 use App\Modules\Station\Services\AbstractStationCreator;
 use App\Modules\Station\Services\AbstractStationDestroyer;
 use App\Modules\Station\Services\AbstractStationUpdater;
-use App\Modules\Station\Services\CacheResponseService;
+use App\Modules\Station\Services\StationStationCacheResponseService;
 use App\Modules\Station\Services\StationCreator;
 use App\Modules\Station\Services\StationDestroyer;
 use App\Modules\Station\Services\StationSearcher;
@@ -57,9 +57,9 @@ final class StationServiceProvider extends ServiceProvider
             });
 
         $this->app->when(StationController::class)
-            ->needs(CacheResponseServiceInterface::class)
+            ->needs(StationCacheResponseServiceInterface::class)
             ->give(static function (Application $app) {
-                return $app->make(CacheResponseService::class);
+                return $app->make(StationStationCacheResponseService::class);
             });
 
         //        CONTROLLERS
@@ -76,13 +76,13 @@ final class StationServiceProvider extends ServiceProvider
                 return $app->make(CompanyRepository::class);
             });
 
-        $this->app->when(CacheResponseService::class)
+        $this->app->when(StationStationCacheResponseService::class)
             ->needs(StationRepositoryInterface::class)
             ->give(static function (Application $app) {
                 return $app->make(StationRepository::class);
             });
 
-        $this->app->when(CacheResponseService::class)
+        $this->app->when(StationStationCacheResponseService::class)
             ->needs(StationSearcherInterface::class)
             ->give(static function (Application $app) {
                 return $app->make(StationSearcher::class);

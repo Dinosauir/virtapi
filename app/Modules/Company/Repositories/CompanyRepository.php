@@ -31,7 +31,7 @@ final class CompanyRepository implements CompanyRepositoryInterface
     }
 
 
-    public function getAllCompanies(string $page = "1"): LengthAwarePaginator
+    public function getAllCompanies(int $page): LengthAwarePaginator
     {
         $taggedCache = $this->getCacheTags();
 

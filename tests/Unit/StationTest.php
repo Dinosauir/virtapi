@@ -76,7 +76,7 @@ final class StationTest extends TestCase
 
         $data = $this->createUpdateData($station);
 
-        $station = $this->stationUpdater->update($station, $data);
+        $station = $this->stationUpdater->update($data);
 
         $this->assertEquals($data->name, $station->name);
         $this->assertEquals($data->latitude->value(), $station->latitude);
@@ -105,7 +105,7 @@ final class StationTest extends TestCase
         $this->assertEquals($data->longitude->value(), $station->longitude);
         $this->assertEquals(1, $station->id);
 
-        $response = $this->stationDestroyer->destroy($station);
+        $response = $this->stationDestroyer->destroy($station->id);
 
         $this->assertTrue($response);
     }
@@ -149,7 +149,7 @@ final class StationTest extends TestCase
 
         $this->stationCreator->create($data);
 
-        $paginator = $this->stationRepository->getAllStations();
+        $paginator = $this->stationRepository->getAllStations(1);
 
         $this->assertCount(1, $paginator);
     }
@@ -173,7 +173,7 @@ final class StationTest extends TestCase
 
         $result = $this->stationSearcher->getStationsInRadius(
             new StationSearchData(
-                page: "1",
+                page: 1,
                 latitude: $latitude,
                 longitude: $longitude,
                 company_id: 1,
@@ -199,15 +199,23 @@ final class StationTest extends TestCase
 
         $this->stationCreator->create($data);
 
-        $result = $this->stationSearcher->getStationsInRadius(
-            new StationSearchData(
-                page: "1",
-                latitude: LatitudeValueObject::make(89),
-                longitude: LongitudeValueObject::make(90),
-                company_id: 1,
-                radius: 50
-            )
+        $data = new StationSearchData(
+            page: 1,
+            latitude: LatitudeValueObject::make(89),
+            longitude: LongitudeValueObject::make(90),
+            company_id: 1,
+            radius: 50
         );
+
+        $this->assertEquals([
+            'page' => 1,
+            'latitude' => LatitudeValueObject::make(89)->value(),
+            'longitude' => LongitudeValueObject::make(90)->value(),
+            'company_id' => 1,
+            'radius' => 50
+        ], $data->toArray());
+
+        $result = $this->stationSearcher->getStationsInRadius($data);
 
         $this->assertCount(0, $result);
     }

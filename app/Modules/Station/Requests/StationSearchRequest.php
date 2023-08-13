@@ -19,16 +19,15 @@ final class StationSearchRequest extends AbstractFormRequest
             'latitude' => 'required|numeric|between:-90,90',
             'longitude' => 'required|numeric|between:-180,180',
             'company_id' => 'required|int|exists:'.Company::class.',id',
-            'radius' => 'required|int'
+            'radius' => 'required|int',
+            'page' => 'nullable|int'
         ];
     }
 
     public function toData(): StationSearchData
     {
-        $page = $this->input('page') ?? "1";
-
         return new StationSearchData(
-            page: (string)$page,
+            page: $this->input('page') ?? 1,
             latitude: LatitudeValueObject::make($this->input('latitude')),
             longitude: LongitudeValueObject::make($this->input('longitude')),
             company_id: (int)$this->input('company_id'),

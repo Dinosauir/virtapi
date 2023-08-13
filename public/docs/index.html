@@ -169,7 +169,11 @@ You can switch the language used with the tabs at the top right (or from the nav
     <pre><code class="language-bash">curl --request GET \
     --get "http://localhost/api/v1/companies" \
     --header "Content-Type: application/json" \
-    --header "Accept: application/json"</code></pre></div>
+    --header "Accept: application/json" \
+    --data "{
+    \"page\": 2
+}"
+</code></pre></div>
 
 
 <div class="javascript-example">
@@ -182,16 +186,21 @@ const headers = {
     "Accept": "application/json",
 };
 
+let body = {
+    "page": 2
+};
+
 fetch(url, {
     method: "GET",
     headers,
+    body: JSON.stringify(body),
 }).then(response =&gt; response.json());</code></pre></div>
 
 </span>
 
 <span id="example-responses-GETapi-v1-companies">
             <blockquote>
-            <p>Example response (200):</p>
+            <p>Example response (500):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -199,96 +208,13 @@ fetch(url, {
             </summary>
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
-x-ratelimit-limit: 60
-x-ratelimit-remaining: 57
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;data&quot;: [
-        {
-            &quot;id&quot;: 1,
-            &quot;name&quot;: &quot;Company 1&quot;,
-            &quot;descendents&quot;: [
-                2,
-                3,
-                1
-            ],
-            &quot;parent&quot;: null
-        },
-        {
-            &quot;id&quot;: 2,
-            &quot;name&quot;: &quot;Company 2&quot;,
-            &quot;descendents&quot;: [
-                3,
-                2
-            ],
-            &quot;parent&quot;: {
-                &quot;id&quot;: 1,
-                &quot;name&quot;: &quot;Company 1&quot;,
-                &quot;descendents&quot;: [
-                    2,
-                    3,
-                    1
-                ],
-                &quot;parent&quot;: null
-            }
-        },
-        {
-            &quot;id&quot;: 3,
-            &quot;name&quot;: &quot;Company 3&quot;,
-            &quot;parent&quot;: {
-                &quot;id&quot;: 2,
-                &quot;name&quot;: &quot;Company 2&quot;,
-                &quot;descendents&quot;: [
-                    3,
-                    2
-                ],
-                &quot;parent&quot;: {
-                    &quot;id&quot;: 1,
-                    &quot;name&quot;: &quot;Company 1&quot;,
-                    &quot;descendents&quot;: [
-                        2,
-                        3,
-                        1
-                    ],
-                    &quot;parent&quot;: null
-                }
-            }
-        }
-    ],
-    &quot;links&quot;: {
-        &quot;first&quot;: &quot;http://localhost/api/v1/companies?page=1&quot;,
-        &quot;last&quot;: &quot;http://localhost/api/v1/companies?page=1&quot;,
-        &quot;prev&quot;: null,
-        &quot;next&quot;: null
-    },
-    &quot;meta&quot;: {
-        &quot;current_page&quot;: 1,
-        &quot;from&quot;: 1,
-        &quot;last_page&quot;: 1,
-        &quot;links&quot;: [
-            {
-                &quot;url&quot;: null,
-                &quot;label&quot;: &quot;&amp;laquo; Previous&quot;,
-                &quot;active&quot;: false
-            },
-            {
-                &quot;url&quot;: &quot;http://localhost/api/v1/companies?page=1&quot;,
-                &quot;label&quot;: &quot;1&quot;,
-                &quot;active&quot;: true
-            },
-            {
-                &quot;url&quot;: null,
-                &quot;label&quot;: &quot;Next &amp;raquo;&quot;,
-                &quot;active&quot;: false
-            }
-        ],
-        &quot;path&quot;: &quot;http://localhost/api/v1/companies&quot;,
-        &quot;per_page&quot;: 100,
-        &quot;to&quot;: 3,
-        &quot;total&quot;: 3
-    }
+    &quot;message&quot;: &quot;Server error&quot;,
+    &quot;code&quot;: 0,
+    &quot;error_message&quot;: &quot;Target [App\\Modules\\Company\\Contracts\\CompanyRepositoryInterface] is not instantiable while building [Knuckles\\Scribe\\Commands\\GenerateDocumentation, App\\Modules\\Company\\Controllers\\Api\\V1\\CompanyController, App\\Modules\\Company\\Services\\CompanyUpdater].&quot;
 }</code>
  </pre>
     </span>
@@ -361,7 +287,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <br>
 <p>Example: <code>application/json</code></p>
             </div>
-                        </form>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>page</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="page"                data-endpoint="GETapi-v1-companies"
+               value="2"
+               data-component="body">
+    <br>
+<p>Example: <code>2</code></p>
+        </div>
+        </form>
 
                     <h2 id="companies-POSTapi-v1-companies">POST api/v1/companies</h2>
 
@@ -380,8 +318,8 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"name\": \"unde\",
-    \"parent_company_id\": 6
+    \"name\": \"odio\",
+    \"parent_company_id\": 8
 }"
 </code></pre></div>
 
@@ -397,8 +335,8 @@ const headers = {
 };
 
 let body = {
-    "name": "unde",
-    "parent_company_id": 6
+    "name": "odio",
+    "parent_company_id": 8
 };
 
 fetch(url, {
@@ -487,10 +425,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="name"                data-endpoint="POSTapi-v1-companies"
-               value="unde"
+               value="odio"
                data-component="body">
     <br>
-<p>Example: <code>unde</code></p>
+<p>Example: <code>odio</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>parent_company_id</code></b>&nbsp;&nbsp;
@@ -498,10 +436,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <i>optional</i> &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="parent_company_id"                data-endpoint="POSTapi-v1-companies"
-               value="6"
+               value="8"
                data-component="body">
     <br>
-<p>Example: <code>6</code></p>
+<p>Example: <code>8</code></p>
         </div>
         </form>
 
@@ -518,14 +456,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/v1/companies/15" \
+    --get "http://localhost/api/v1/companies/19" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/v1/companies/15"
+    "http://localhost/api/v1/companies/19"
 );
 
 const headers = {
@@ -542,7 +480,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-v1-companies--company-">
             <blockquote>
-            <p>Example response (404):</p>
+            <p>Example response (500):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -550,15 +488,13 @@ fetch(url, {
             </summary>
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
-x-ratelimit-limit: 60
-x-ratelimit-remaining: 56
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Not found&quot;,
+    &quot;message&quot;: &quot;Server error&quot;,
     &quot;code&quot;: 0,
-    &quot;error_message&quot;: &quot;No query results for model [App\\Modules\\Company\\Models\\Company] 15&quot;
+    &quot;error_message&quot;: &quot;Target [App\\Modules\\Company\\Contracts\\CompanyRepositoryInterface] is not instantiable while building [Knuckles\\Scribe\\Commands\\GenerateDocumentation, App\\Modules\\Company\\Controllers\\Api\\V1\\CompanyController, App\\Modules\\Company\\Services\\CompanyUpdater].&quot;
 }</code>
  </pre>
     </span>
@@ -638,10 +574,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="company"                data-endpoint="GETapi-v1-companies--company-"
-               value="15"
+               value="19"
                data-component="url">
     <br>
-<p>The ID of the company. Example: <code>15</code></p>
+<p>The ID of the company. Example: <code>19</code></p>
             </div>
                     </form>
 
@@ -658,19 +594,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/v1/companies/19" \
+    "http://localhost/api/v1/companies/12" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"name\": \"illum\",
-    \"parent_company_id\": 18
+    \"name\": \"ut\",
+    \"parent_company_id\": 12
 }"
 </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/v1/companies/19"
+    "http://localhost/api/v1/companies/12"
 );
 
 const headers = {
@@ -679,8 +615,8 @@ const headers = {
 };
 
 let body = {
-    "name": "illum",
-    "parent_company_id": 18
+    "name": "ut",
+    "parent_company_id": 12
 };
 
 fetch(url, {
@@ -773,10 +709,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="company"                data-endpoint="PUTapi-v1-companies--company-"
-               value="19"
+               value="12"
                data-component="url">
     <br>
-<p>The ID of the company. Example: <code>19</code></p>
+<p>The ID of the company. Example: <code>12</code></p>
             </div>
                             <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <div style=" padding-left: 28px;  clear: unset;">
@@ -785,10 +721,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="name"                data-endpoint="PUTapi-v1-companies--company-"
-               value="illum"
+               value="ut"
                data-component="body">
     <br>
-<p>Example: <code>illum</code></p>
+<p>Example: <code>ut</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>parent_company_id</code></b>&nbsp;&nbsp;
@@ -796,10 +732,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <i>optional</i> &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="parent_company_id"                data-endpoint="PUTapi-v1-companies--company-"
-               value="18"
+               value="12"
                data-component="body">
     <br>
-<p>Example: <code>18</code></p>
+<p>Example: <code>12</code></p>
         </div>
         </form>
 
@@ -816,14 +752,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/v1/companies/2" \
+    "http://localhost/api/v1/companies/14" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/v1/companies/2"
+    "http://localhost/api/v1/companies/14"
 );
 
 const headers = {
@@ -916,10 +852,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="company"                data-endpoint="DELETEapi-v1-companies--company-"
-               value="2"
+               value="14"
                data-component="url">
     <br>
-<p>The ID of the company. Example: <code>2</code></p>
+<p>The ID of the company. Example: <code>14</code></p>
             </div>
                     </form>
 
@@ -1075,9 +1011,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Accept: application/json" \
     --data "{
     \"latitude\": -90,
-    \"longitude\": -179,
-    \"company_id\": 3,
-    \"radius\": 12
+    \"longitude\": -180,
+    \"company_id\": 5,
+    \"radius\": 1,
+    \"page\": 8
 }"
 </code></pre></div>
 
@@ -1094,9 +1031,10 @@ const headers = {
 
 let body = {
     "latitude": -90,
-    "longitude": -179,
-    "company_id": 3,
-    "radius": 12
+    "longitude": -180,
+    "company_id": 5,
+    "radius": 1,
+    "page": 8
 };
 
 fetch(url, {
@@ -1196,10 +1134,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="longitude"                data-endpoint="POSTapi-v1-stations-search"
-               value="-179"
+               value="-180"
                data-component="body">
     <br>
-<p>Must be between -180 and 180. Example: <code>-179</code></p>
+<p>Must be between -180 and 180. Example: <code>-180</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>company_id</code></b>&nbsp;&nbsp;
@@ -1207,10 +1145,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="company_id"                data-endpoint="POSTapi-v1-stations-search"
-               value="3"
+               value="5"
                data-component="body">
     <br>
-<p>Example: <code>3</code></p>
+<p>Example: <code>5</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>radius</code></b>&nbsp;&nbsp;
@@ -1218,10 +1156,21 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="radius"                data-endpoint="POSTapi-v1-stations-search"
-               value="12"
+               value="1"
                data-component="body">
     <br>
-<p>Example: <code>12</code></p>
+<p>Example: <code>1</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>page</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="page"                data-endpoint="POSTapi-v1-stations-search"
+               value="8"
+               data-component="body">
+    <br>
+<p>Example: <code>8</code></p>
         </div>
         </form>
 
@@ -1240,7 +1189,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <pre><code class="language-bash">curl --request GET \
     --get "http://localhost/api/v1/stations" \
     --header "Content-Type: application/json" \
-    --header "Accept: application/json"</code></pre></div>
+    --header "Accept: application/json" \
+    --data "{
+    \"page\": 7
+}"
+</code></pre></div>
 
 
 <div class="javascript-example">
@@ -1253,16 +1206,21 @@ const headers = {
     "Accept": "application/json",
 };
 
+let body = {
+    "page": 7
+};
+
 fetch(url, {
     method: "GET",
     headers,
+    body: JSON.stringify(body),
 }).then(response =&gt; response.json());</code></pre></div>
 
 </span>
 
 <span id="example-responses-GETapi-v1-stations">
             <blockquote>
-            <p>Example response (200):</p>
+            <p>Example response (500):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -1270,365 +1228,13 @@ fetch(url, {
             </summary>
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
-x-ratelimit-limit: 60
-x-ratelimit-remaining: 59
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;data&quot;: [
-        {
-            &quot;id&quot;: 2,
-            &quot;name&quot;: &quot;Station 2&quot;,
-            &quot;latitude&quot;: &quot;-3.00000000&quot;,
-            &quot;longitude&quot;: &quot;179.00000000&quot;,
-            &quot;address&quot;: &quot;Lun3ca&quot;,
-            &quot;company&quot;: {
-                &quot;id&quot;: 1,
-                &quot;name&quot;: &quot;Company 1&quot;,
-                &quot;descendents&quot;: [
-                    2,
-                    3,
-                    1
-                ],
-                &quot;parent&quot;: null
-            }
-        },
-        {
-            &quot;id&quot;: 4,
-            &quot;name&quot;: &quot;Station 4&quot;,
-            &quot;latitude&quot;: &quot;-31.00000000&quot;,
-            &quot;longitude&quot;: &quot;171.00000000&quot;,
-            &quot;address&quot;: &quot;Lun3ca&quot;,
-            &quot;company&quot;: {
-                &quot;id&quot;: 1,
-                &quot;name&quot;: &quot;Company 1&quot;,
-                &quot;descendents&quot;: [
-                    2,
-                    3,
-                    1
-                ],
-                &quot;parent&quot;: null
-            }
-        },
-        {
-            &quot;id&quot;: 5,
-            &quot;name&quot;: &quot;Station 5&quot;,
-            &quot;latitude&quot;: &quot;-30.00000000&quot;,
-            &quot;longitude&quot;: &quot;170.00000000&quot;,
-            &quot;address&quot;: &quot;Lun3ca&quot;,
-            &quot;company&quot;: {
-                &quot;id&quot;: 1,
-                &quot;name&quot;: &quot;Company 1&quot;,
-                &quot;descendents&quot;: [
-                    2,
-                    3,
-                    1
-                ],
-                &quot;parent&quot;: null
-            }
-        },
-        {
-            &quot;id&quot;: 6,
-            &quot;name&quot;: &quot;Station 6&quot;,
-            &quot;latitude&quot;: &quot;-29.00000000&quot;,
-            &quot;longitude&quot;: &quot;169.00000000&quot;,
-            &quot;address&quot;: &quot;Lun3ca&quot;,
-            &quot;company&quot;: {
-                &quot;id&quot;: 1,
-                &quot;name&quot;: &quot;Company 1&quot;,
-                &quot;descendents&quot;: [
-                    2,
-                    3,
-                    1
-                ],
-                &quot;parent&quot;: null
-            }
-        },
-        {
-            &quot;id&quot;: 7,
-            &quot;name&quot;: &quot;Station 7&quot;,
-            &quot;latitude&quot;: &quot;-28.00000000&quot;,
-            &quot;longitude&quot;: &quot;168.00000000&quot;,
-            &quot;address&quot;: &quot;Lun3ca&quot;,
-            &quot;company&quot;: {
-                &quot;id&quot;: 1,
-                &quot;name&quot;: &quot;Company 1&quot;,
-                &quot;descendents&quot;: [
-                    2,
-                    3,
-                    1
-                ],
-                &quot;parent&quot;: null
-            }
-        },
-        {
-            &quot;id&quot;: 8,
-            &quot;name&quot;: &quot;Station 8&quot;,
-            &quot;latitude&quot;: &quot;-27.00000000&quot;,
-            &quot;longitude&quot;: &quot;166.00000000&quot;,
-            &quot;address&quot;: &quot;Lun3ca&quot;,
-            &quot;company&quot;: {
-                &quot;id&quot;: 1,
-                &quot;name&quot;: &quot;Company 1&quot;,
-                &quot;descendents&quot;: [
-                    2,
-                    3,
-                    1
-                ],
-                &quot;parent&quot;: null
-            }
-        },
-        {
-            &quot;id&quot;: 9,
-            &quot;name&quot;: &quot;Station 9&quot;,
-            &quot;latitude&quot;: &quot;-24.00000000&quot;,
-            &quot;longitude&quot;: &quot;161.00000000&quot;,
-            &quot;address&quot;: &quot;Lun3ca&quot;,
-            &quot;company&quot;: {
-                &quot;id&quot;: 1,
-                &quot;name&quot;: &quot;Company 1&quot;,
-                &quot;descendents&quot;: [
-                    2,
-                    3,
-                    1
-                ],
-                &quot;parent&quot;: null
-            }
-        },
-        {
-            &quot;id&quot;: 10,
-            &quot;name&quot;: &quot;Station 10&quot;,
-            &quot;latitude&quot;: &quot;-21.00000000&quot;,
-            &quot;longitude&quot;: &quot;160.00000000&quot;,
-            &quot;address&quot;: &quot;Lun3ca&quot;,
-            &quot;company&quot;: {
-                &quot;id&quot;: 1,
-                &quot;name&quot;: &quot;Company 1&quot;,
-                &quot;descendents&quot;: [
-                    2,
-                    3,
-                    1
-                ],
-                &quot;parent&quot;: null
-            }
-        },
-        {
-            &quot;id&quot;: 11,
-            &quot;name&quot;: &quot;Station 1&quot;,
-            &quot;latitude&quot;: &quot;-10.00000000&quot;,
-            &quot;longitude&quot;: &quot;10.00000000&quot;,
-            &quot;address&quot;: &quot;Dumbrava&quot;,
-            &quot;company&quot;: {
-                &quot;id&quot;: 2,
-                &quot;name&quot;: &quot;Company 2&quot;,
-                &quot;descendents&quot;: [
-                    3,
-                    2
-                ],
-                &quot;parent&quot;: {
-                    &quot;id&quot;: 1,
-                    &quot;name&quot;: &quot;Company 1&quot;,
-                    &quot;descendents&quot;: [
-                        2,
-                        3,
-                        1
-                    ],
-                    &quot;parent&quot;: null
-                }
-            }
-        },
-        {
-            &quot;id&quot;: 12,
-            &quot;name&quot;: &quot;Station 2&quot;,
-            &quot;latitude&quot;: &quot;-11.00000000&quot;,
-            &quot;longitude&quot;: &quot;15.00000000&quot;,
-            &quot;address&quot;: &quot;Dumbrava&quot;,
-            &quot;company&quot;: {
-                &quot;id&quot;: 2,
-                &quot;name&quot;: &quot;Company 2&quot;,
-                &quot;descendents&quot;: [
-                    3,
-                    2
-                ],
-                &quot;parent&quot;: {
-                    &quot;id&quot;: 1,
-                    &quot;name&quot;: &quot;Company 1&quot;,
-                    &quot;descendents&quot;: [
-                        2,
-                        3,
-                        1
-                    ],
-                    &quot;parent&quot;: null
-                }
-            }
-        },
-        {
-            &quot;id&quot;: 13,
-            &quot;name&quot;: &quot;Station 3&quot;,
-            &quot;latitude&quot;: &quot;-13.00000000&quot;,
-            &quot;longitude&quot;: &quot;18.00000000&quot;,
-            &quot;address&quot;: &quot;Dumbrava&quot;,
-            &quot;company&quot;: {
-                &quot;id&quot;: 2,
-                &quot;name&quot;: &quot;Company 2&quot;,
-                &quot;descendents&quot;: [
-                    3,
-                    2
-                ],
-                &quot;parent&quot;: {
-                    &quot;id&quot;: 1,
-                    &quot;name&quot;: &quot;Company 1&quot;,
-                    &quot;descendents&quot;: [
-                        2,
-                        3,
-                        1
-                    ],
-                    &quot;parent&quot;: null
-                }
-            }
-        },
-        {
-            &quot;id&quot;: 14,
-            &quot;name&quot;: &quot;Station 4&quot;,
-            &quot;latitude&quot;: &quot;-19.00000000&quot;,
-            &quot;longitude&quot;: &quot;10.00000000&quot;,
-            &quot;address&quot;: &quot;Dumbrava&quot;,
-            &quot;company&quot;: {
-                &quot;id&quot;: 2,
-                &quot;name&quot;: &quot;Company 2&quot;,
-                &quot;descendents&quot;: [
-                    3,
-                    2
-                ],
-                &quot;parent&quot;: {
-                    &quot;id&quot;: 1,
-                    &quot;name&quot;: &quot;Company 1&quot;,
-                    &quot;descendents&quot;: [
-                        2,
-                        3,
-                        1
-                    ],
-                    &quot;parent&quot;: null
-                }
-            }
-        },
-        {
-            &quot;id&quot;: 15,
-            &quot;name&quot;: &quot;Station 5&quot;,
-            &quot;latitude&quot;: &quot;-15.00000000&quot;,
-            &quot;longitude&quot;: &quot;10.00000000&quot;,
-            &quot;address&quot;: &quot;Dumbrava&quot;,
-            &quot;company&quot;: {
-                &quot;id&quot;: 2,
-                &quot;name&quot;: &quot;Company 2&quot;,
-                &quot;descendents&quot;: [
-                    3,
-                    2
-                ],
-                &quot;parent&quot;: {
-                    &quot;id&quot;: 1,
-                    &quot;name&quot;: &quot;Company 1&quot;,
-                    &quot;descendents&quot;: [
-                        2,
-                        3,
-                        1
-                    ],
-                    &quot;parent&quot;: null
-                }
-            }
-        },
-        {
-            &quot;id&quot;: 16,
-            &quot;name&quot;: &quot;Station 1&quot;,
-            &quot;latitude&quot;: &quot;-55.00000000&quot;,
-            &quot;longitude&quot;: &quot;50.00000000&quot;,
-            &quot;address&quot;: &quot;Martieni&quot;,
-            &quot;company&quot;: {
-                &quot;id&quot;: 3,
-                &quot;name&quot;: &quot;Company 3&quot;,
-                &quot;parent&quot;: {
-                    &quot;id&quot;: 2,
-                    &quot;name&quot;: &quot;Company 2&quot;,
-                    &quot;descendents&quot;: [
-                        3,
-                        2
-                    ],
-                    &quot;parent&quot;: {
-                        &quot;id&quot;: 1,
-                        &quot;name&quot;: &quot;Company 1&quot;,
-                        &quot;descendents&quot;: [
-                            2,
-                            3,
-                            1
-                        ],
-                        &quot;parent&quot;: null
-                    }
-                }
-            }
-        },
-        {
-            &quot;id&quot;: 17,
-            &quot;name&quot;: &quot;Station 2&quot;,
-            &quot;latitude&quot;: &quot;-50.00000000&quot;,
-            &quot;longitude&quot;: &quot;45.00000000&quot;,
-            &quot;address&quot;: &quot;Martieni&quot;,
-            &quot;company&quot;: {
-                &quot;id&quot;: 3,
-                &quot;name&quot;: &quot;Company 3&quot;,
-                &quot;parent&quot;: {
-                    &quot;id&quot;: 2,
-                    &quot;name&quot;: &quot;Company 2&quot;,
-                    &quot;descendents&quot;: [
-                        3,
-                        2
-                    ],
-                    &quot;parent&quot;: {
-                        &quot;id&quot;: 1,
-                        &quot;name&quot;: &quot;Company 1&quot;,
-                        &quot;descendents&quot;: [
-                            2,
-                            3,
-                            1
-                        ],
-                        &quot;parent&quot;: null
-                    }
-                }
-            }
-        }
-    ],
-    &quot;links&quot;: {
-        &quot;first&quot;: &quot;http://localhost/api/v1/stations?page=1&quot;,
-        &quot;last&quot;: &quot;http://localhost/api/v1/stations?page=1&quot;,
-        &quot;prev&quot;: null,
-        &quot;next&quot;: null
-    },
-    &quot;meta&quot;: {
-        &quot;current_page&quot;: 1,
-        &quot;from&quot;: 1,
-        &quot;last_page&quot;: 1,
-        &quot;links&quot;: [
-            {
-                &quot;url&quot;: null,
-                &quot;label&quot;: &quot;&amp;laquo; Previous&quot;,
-                &quot;active&quot;: false
-            },
-            {
-                &quot;url&quot;: &quot;http://localhost/api/v1/stations?page=1&quot;,
-                &quot;label&quot;: &quot;1&quot;,
-                &quot;active&quot;: true
-            },
-            {
-                &quot;url&quot;: null,
-                &quot;label&quot;: &quot;Next &amp;raquo;&quot;,
-                &quot;active&quot;: false
-            }
-        ],
-        &quot;path&quot;: &quot;http://localhost/api/v1/stations&quot;,
-        &quot;per_page&quot;: 100,
-        &quot;to&quot;: 15,
-        &quot;total&quot;: 15
-    }
+    &quot;message&quot;: &quot;Server error&quot;,
+    &quot;code&quot;: 0,
+    &quot;error_message&quot;: &quot;Target [App\\Modules\\Station\\Contracts\\StationRepositoryInterface] is not instantiable while building [Knuckles\\Scribe\\Commands\\GenerateDocumentation, App\\Modules\\Station\\Controllers\\Api\\V1\\StationController, App\\Modules\\Station\\Services\\StationUpdater].&quot;
 }</code>
  </pre>
     </span>
@@ -1701,7 +1307,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <br>
 <p>Example: <code>application/json</code></p>
             </div>
-                        </form>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>page</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="page"                data-endpoint="GETapi-v1-stations"
+               value="7"
+               data-component="body">
+    <br>
+<p>Example: <code>7</code></p>
+        </div>
+        </form>
 
                     <h2 id="stations-POSTapi-v1-stations">POST api/v1/stations</h2>
 
@@ -1723,8 +1341,8 @@ You can check the Dev Tools console for debugging information.</code></pre>
     \"name\": \"et\",
     \"latitude\": -89,
     \"longitude\": -179,
-    \"company_id\": 11,
-    \"address\": \"totam\"
+    \"company_id\": 10,
+    \"address\": \"non\"
 }"
 </code></pre></div>
 
@@ -1743,8 +1361,8 @@ let body = {
     "name": "et",
     "latitude": -89,
     "longitude": -179,
-    "company_id": 11,
-    "address": "totam"
+    "company_id": 10,
+    "address": "non"
 };
 
 fetch(url, {
@@ -1866,10 +1484,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="company_id"                data-endpoint="POSTapi-v1-stations"
-               value="11"
+               value="10"
                data-component="body">
     <br>
-<p>Example: <code>11</code></p>
+<p>Example: <code>10</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>address</code></b>&nbsp;&nbsp;
@@ -1877,10 +1495,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="address"                data-endpoint="POSTapi-v1-stations"
-               value="totam"
+               value="non"
                data-component="body">
     <br>
-<p>Example: <code>totam</code></p>
+<p>Example: <code>non</code></p>
         </div>
         </form>
 
@@ -1897,14 +1515,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/v1/stations/20" \
+    --get "http://localhost/api/v1/stations/17" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/v1/stations/20"
+    "http://localhost/api/v1/stations/17"
 );
 
 const headers = {
@@ -1921,7 +1539,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-v1-stations--station-">
             <blockquote>
-            <p>Example response (404):</p>
+            <p>Example response (500):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -1929,15 +1547,13 @@ fetch(url, {
             </summary>
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
-x-ratelimit-limit: 60
-x-ratelimit-remaining: 58
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Not found&quot;,
+    &quot;message&quot;: &quot;Server error&quot;,
     &quot;code&quot;: 0,
-    &quot;error_message&quot;: &quot;No query results for model [App\\Modules\\Station\\Models\\Station] 20&quot;
+    &quot;error_message&quot;: &quot;Target [App\\Modules\\Station\\Contracts\\StationRepositoryInterface] is not instantiable while building [Knuckles\\Scribe\\Commands\\GenerateDocumentation, App\\Modules\\Station\\Controllers\\Api\\V1\\StationController, App\\Modules\\Station\\Services\\StationUpdater].&quot;
 }</code>
  </pre>
     </span>
@@ -2017,10 +1633,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="station"                data-endpoint="GETapi-v1-stations--station-"
-               value="20"
+               value="17"
                data-component="url">
     <br>
-<p>The ID of the station. Example: <code>20</code></p>
+<p>The ID of the station. Example: <code>17</code></p>
             </div>
                     </form>
 
@@ -2037,22 +1653,23 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/v1/stations/18" \
+    "http://localhost/api/v1/stations/17" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"name\": \"temporibus\",
-    \"latitude\": -89,
-    \"longitude\": -179,
-    \"company_id\": 5,
-    \"address\": \"accusamus\"
+    \"name\": \"reiciendis\",
+    \"latitude\": -90,
+    \"longitude\": -180,
+    \"company_id\": 14,
+    \"address\": \"eligendi\",
+    \"station\": 19
 }"
 </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/v1/stations/18"
+    "http://localhost/api/v1/stations/17"
 );
 
 const headers = {
@@ -2061,11 +1678,12 @@ const headers = {
 };
 
 let body = {
-    "name": "temporibus",
-    "latitude": -89,
-    "longitude": -179,
-    "company_id": 5,
-    "address": "accusamus"
+    "name": "reiciendis",
+    "latitude": -90,
+    "longitude": -180,
+    "company_id": 14,
+    "address": "eligendi",
+    "station": 19
 };
 
 fetch(url, {
@@ -2158,10 +1776,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="station"                data-endpoint="PUTapi-v1-stations--station-"
-               value="18"
+               value="17"
                data-component="url">
     <br>
-<p>The ID of the station. Example: <code>18</code></p>
+<p>The ID of the station. Example: <code>17</code></p>
             </div>
                             <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <div style=" padding-left: 28px;  clear: unset;">
@@ -2170,10 +1788,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="name"                data-endpoint="PUTapi-v1-stations--station-"
-               value="temporibus"
+               value="reiciendis"
                data-component="body">
     <br>
-<p>Example: <code>temporibus</code></p>
+<p>Example: <code>reiciendis</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>latitude</code></b>&nbsp;&nbsp;
@@ -2181,10 +1799,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="latitude"                data-endpoint="PUTapi-v1-stations--station-"
-               value="-89"
+               value="-90"
                data-component="body">
     <br>
-<p>Must be between -90 and 90. Example: <code>-89</code></p>
+<p>Must be between -90 and 90. Example: <code>-90</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>longitude</code></b>&nbsp;&nbsp;
@@ -2192,10 +1810,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="longitude"                data-endpoint="PUTapi-v1-stations--station-"
-               value="-179"
+               value="-180"
                data-component="body">
     <br>
-<p>Must be between -180 and 180. Example: <code>-179</code></p>
+<p>Must be between -180 and 180. Example: <code>-180</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>company_id</code></b>&nbsp;&nbsp;
@@ -2203,10 +1821,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="company_id"                data-endpoint="PUTapi-v1-stations--station-"
-               value="5"
+               value="14"
                data-component="body">
     <br>
-<p>Example: <code>5</code></p>
+<p>Example: <code>14</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>address</code></b>&nbsp;&nbsp;
@@ -2214,10 +1832,21 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="address"                data-endpoint="PUTapi-v1-stations--station-"
-               value="accusamus"
+               value="eligendi"
                data-component="body">
     <br>
-<p>Example: <code>accusamus</code></p>
+<p>Example: <code>eligendi</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>station</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="station"                data-endpoint="PUTapi-v1-stations--station-"
+               value="19"
+               data-component="body">
+    <br>
+<p>Example: <code>19</code></p>
         </div>
         </form>
 
@@ -2234,14 +1863,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/v1/stations/19" \
+    "http://localhost/api/v1/stations/6" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/v1/stations/19"
+    "http://localhost/api/v1/stations/6"
 );
 
 const headers = {
@@ -2334,10 +1963,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="station"                data-endpoint="DELETEapi-v1-stations--station-"
-               value="19"
+               value="6"
                data-component="url">
     <br>
-<p>The ID of the station. Example: <code>19</code></p>
+<p>The ID of the station. Example: <code>6</code></p>
             </div>
                     </form>
 

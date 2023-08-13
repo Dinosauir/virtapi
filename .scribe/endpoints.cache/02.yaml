@@ -23,18 +23,24 @@ endpoints:
     cleanUrlParameters: []
     queryParameters: []
     cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
+    bodyParameters:
+      page:
+        name: page
+        description: ''
+        required: false
+        example: 2
+        type: integer
+        custom: []
+    cleanBodyParameters:
+      page: 2
     fileParameters: []
     responses:
       -
-        status: 200
-        content: '{"data":[{"id":1,"name":"Company 1","descendents":[2,3,1],"parent":null},{"id":2,"name":"Company 2","descendents":[3,2],"parent":{"id":1,"name":"Company 1","descendents":[2,3,1],"parent":null}},{"id":3,"name":"Company 3","parent":{"id":2,"name":"Company 2","descendents":[3,2],"parent":{"id":1,"name":"Company 1","descendents":[2,3,1],"parent":null}}}],"links":{"first":"http:\/\/localhost\/api\/v1\/companies?page=1","last":"http:\/\/localhost\/api\/v1\/companies?page=1","prev":null,"next":null},"meta":{"current_page":1,"from":1,"last_page":1,"links":[{"url":null,"label":"&laquo; Previous","active":false},{"url":"http:\/\/localhost\/api\/v1\/companies?page=1","label":"1","active":true},{"url":null,"label":"Next &raquo;","active":false}],"path":"http:\/\/localhost\/api\/v1\/companies","per_page":100,"to":3,"total":3}}'
+        status: 500
+        content: '{"message":"Server error","code":0,"error_message":"Target [App\\Modules\\Company\\Contracts\\CompanyRepositoryInterface] is not instantiable while building [Knuckles\\Scribe\\Commands\\GenerateDocumentation, App\\Modules\\Company\\Controllers\\Api\\V1\\CompanyController, App\\Modules\\Company\\Services\\CompanyUpdater]."}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
-          x-ratelimit-limit: '60'
-          x-ratelimit-remaining: '57'
           access-control-allow-origin: '*'
         description: null
         custom: []
@@ -69,19 +75,19 @@ endpoints:
         name: name
         description: ''
         required: true
-        example: unde
+        example: odio
         type: string
         custom: []
       parent_company_id:
         name: parent_company_id
         description: ''
         required: false
-        example: 6
+        example: 8
         type: integer
         custom: []
     cleanBodyParameters:
-      name: unde
-      parent_company_id: 6
+      name: odio
+      parent_company_id: 8
     fileParameters: []
     responses: []
     responseFields: []
@@ -111,11 +117,11 @@ endpoints:
         name: company
         description: 'The ID of the company.'
         required: true
-        example: 15
+        example: 19
         type: integer
         custom: []
     cleanUrlParameters:
-      company: 15
+      company: 19
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -123,13 +129,11 @@ endpoints:
     fileParameters: []
     responses:
       -
-        status: 404
-        content: '{"message":"Not found","code":0,"error_message":"No query results for model [App\\Modules\\Company\\Models\\Company] 15"}'
+        status: 500
+        content: '{"message":"Server error","code":0,"error_message":"Target [App\\Modules\\Company\\Contracts\\CompanyRepositoryInterface] is not instantiable while building [Knuckles\\Scribe\\Commands\\GenerateDocumentation, App\\Modules\\Company\\Controllers\\Api\\V1\\CompanyController, App\\Modules\\Company\\Services\\CompanyUpdater]."}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
-          x-ratelimit-limit: '60'
-          x-ratelimit-remaining: '56'
           access-control-allow-origin: '*'
         description: null
         custom: []
@@ -161,11 +165,11 @@ endpoints:
         name: company
         description: 'The ID of the company.'
         required: true
-        example: 19
+        example: 12
         type: integer
         custom: []
     cleanUrlParameters:
-      company: 19
+      company: 12
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -173,19 +177,19 @@ endpoints:
         name: name
         description: ''
         required: true
-        example: illum
+        example: ut
         type: string
         custom: []
       parent_company_id:
         name: parent_company_id
         description: ''
         required: false
-        example: 18
+        example: 12
         type: integer
         custom: []
     cleanBodyParameters:
-      name: illum
-      parent_company_id: 18
+      name: ut
+      parent_company_id: 12
     fileParameters: []
     responses: []
     responseFields: []
@@ -215,11 +219,11 @@ endpoints:
         name: company
         description: 'The ID of the company.'
         required: true
-        example: 2
+        example: 14
         type: integer
         custom: []
     cleanUrlParameters:
-      company: 2
+      company: 14
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []

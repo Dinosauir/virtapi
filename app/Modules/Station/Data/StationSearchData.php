@@ -12,7 +12,7 @@ use App\Modules\Station\ValueObjects\LongitudeValueObject;
 class StationSearchData extends AbstractData
 {
     public function __construct(
-        public readonly string $page,
+        public readonly int $page,
         public readonly LatitudeValueObject $latitude,
         public readonly LongitudeValueObject $longitude,
         public readonly int $company_id,

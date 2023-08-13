@@ -5,9 +5,10 @@ declare(strict_types=1);
 
 namespace App\Modules\Station\Services;
 
-use App\Modules\Station\Contracts\CacheResponseServiceInterface;
+use App\Modules\Station\Contracts\StationCacheResponseServiceInterface;
 use App\Modules\Station\Contracts\StationRepositoryInterface;
 use App\Modules\Station\Contracts\StationSearcherInterface;
+use App\Modules\Station\Data\StationListData;
 use App\Modules\Station\Data\StationSearchData;
 use App\Modules\Station\Models\Station;
 use App\Modules\Station\Repositories\StationRepository;
@@ -16,7 +17,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Cache;
 use Symfony\Component\HttpFoundation\Response;
 
-class CacheResponseService implements CacheResponseServiceInterface
+final class StationStationCacheResponseService implements StationCacheResponseServiceInterface
 {
     public function __construct(
         private readonly StationRepositoryInterface $stationRepository,
@@ -24,7 +25,7 @@ class CacheResponseService implements CacheResponseServiceInterface
     ) {
     }
 
-    final public function getStations(string $page = "1"): JsonResponse
+    public function getStations(StationListData $data): JsonResponse
     {
         $taggedCache = Cache::tags(Station::getCollectionCacheKey());
         $cacheKey = request()->fullUrl();
@@ -33,15 +34,31 @@ class CacheResponseService implements CacheResponseServiceInterface
             return $taggedCache->get($cacheKey);
         }
 
-        $response = $this->getCollectionResponse($page);
+        $response = $this->getCollectionResponse($data->page);
 
         $taggedCache->forever($cacheKey, $response);
 
         return $response;
     }
 
+    public function getStation(int $station_id): JsonResponse
+    {
+        $taggedCache = Cache::tags(Station::getCollectionCacheKey());
+        $cacheKey = request()->fullUrl();
 
-    final public function searchInRadius(StationSearchData $data): JsonResponse
+        if ($taggedCache->has($cacheKey)) {
+            return $taggedCache->get($cacheKey);
+        }
+        $response = StationResource::make($this->stationRepository->getStation($station_id))
+            ->response()
+            ->setStatusCode(Response::HTTP_OK);
+
+        $taggedCache->forever($cacheKey, $response);
+
+        return $response;
+    }
+
+    public function searchInRadius(StationSearchData $data): JsonResponse
     {
         $taggedCache = Cache::tags(Station::getCollectionCacheKey());
         $cacheKey = StationRepository::getSearchCacheKey($data);
@@ -57,7 +74,7 @@ class CacheResponseService implements CacheResponseServiceInterface
         return $response;
     }
 
-    private function getCollectionResponse(string $page = "1"): JsonResponse
+    private function getCollectionResponse(int $page): JsonResponse
     {
         return StationResource::collection($this->stationRepository->getAllStations($page))
             ->response()
