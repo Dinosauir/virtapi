@@ -95,7 +95,7 @@ jobs:
       - name: Execute tests (Unit and Feature tests) via PHPUnit
         run: | 
             vendor/bin/phpunit --testdox --coverage-text --stop-on-defect
-        env
+        env:
           DB_PORT: ${{ job.services.mysql.ports['3306'] }}
           REDIS_HOST: localhost
           REDIS_PORT: ${{ job.services.redis.ports['6379'] }}
