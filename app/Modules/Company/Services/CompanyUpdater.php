@@ -12,6 +12,9 @@ use Illuminate\Validation\ValidationException;
 final class CompanyUpdater extends AbstractCompanyUpdater
 {
     public const VALIDATION_MESSAGE = 'Parent company cannot be itself';
+
+    public const VALIDATION_PARENT_MESSAGE = 'Cannot parent eachother';
+
     /**
      * @throws ValidationException
      */
@@ -19,6 +22,12 @@ final class CompanyUpdater extends AbstractCompanyUpdater
     {
         if ($data->parent_company_id === $data->id) {
             throw ValidationException::withMessages(['parent_company_id' => self::VALIDATION_MESSAGE]);
+        }
+
+        $company = $this->companyRepository->getCompany($data->parent_company_id);
+
+        if ($company->parent_company_id === $data->id) {
+            throw ValidationException::withMessages(['parent_company_id' => self::VALIDATION_PARENT_MESSAGE]);
         }
 
         return;

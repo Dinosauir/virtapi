@@ -48,6 +48,18 @@ final class CompanyServiceProvider extends ServiceProvider
 
         // CONTROLLERS
 
+        $this->app->when(CompanyUpdater::class)
+            ->needs(CompanyRepositoryInterface::class)
+            ->give(static function (Application $app) {
+                return $app->make(CompanyRepository::class);
+            });
+
+        $this->app->when(CompanyDestroyer::class)
+            ->needs(CompanyRepositoryInterface::class)
+            ->give(static function (Application $app) {
+                return $app->make(CompanyRepository::class);
+            });
+
         $this->app->when(CompanyCacheResponseService::class)
             ->needs(CompanyRepositoryInterface::class)
             ->give(static function (Application $app) {

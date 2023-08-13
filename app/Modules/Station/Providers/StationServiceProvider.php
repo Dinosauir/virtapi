@@ -51,18 +51,24 @@ final class StationServiceProvider extends ServiceProvider
             });
 
         $this->app->when(StationController::class)
-            ->needs(StationRepositoryInterface::class)
-            ->give(static function (Application $app) {
-                return $app->make(StationRepository::class);
-            });
-
-        $this->app->when(StationController::class)
             ->needs(StationCacheResponseServiceInterface::class)
             ->give(static function (Application $app) {
                 return $app->make(StationStationCacheResponseService::class);
             });
 
         //        CONTROLLERS
+
+        $this->app->when(StationDestroyer::class)
+            ->needs(StationRepositoryInterface::class)
+            ->give(static function (Application $app) {
+                return $app->make(StationRepository::class);
+            });
+
+        $this->app->when(StationUpdater::class)
+            ->needs(StationRepositoryInterface::class)
+            ->give(static function (Application $app) {
+                return $app->make(StationRepository::class);
+            });
 
         $this->app->when(StationSearcher::class)
             ->needs(StationRepositoryInterface::class)
