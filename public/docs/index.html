@@ -1,0 +1,3261 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Virta API</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../docs/css/theme-default.style.css" media="screen">
+    <link rel="stylesheet" href="../docs/css/theme-default.print.css" media="print">
+
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
+
+    <link rel="stylesheet"
+          href="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/styles/obsidian.min.css">
+    <script src="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/highlight.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jets/0.14.1/jets.min.js"></script>
+
+    <style id="language-style">
+        /* starts out as display none and is replaced with js later  */
+                    body .content .bash-example code { display: none; }
+                    body .content .javascript-example code { display: none; }
+            </style>
+
+    <script>
+        var tryItOutBaseUrl = "http://localhost";
+        var useCsrf = Boolean();
+        var csrfUrl = "/sanctum/csrf-cookie";
+    </script>
+    <script src="../docs/js/tryitout-4.22.0.js"></script>
+
+    <script src="../docs/js/theme-default-4.22.0.js"></script>
+
+</head>
+
+<body data-languages="[&quot;bash&quot;,&quot;javascript&quot;]">
+
+<a href="#" id="nav-button">
+    <span>
+        MENU
+        <img src="../docs/images/navbar.png" alt="navbar-image"/>
+    </span>
+</a>
+<div class="tocify-wrapper">
+    
+            <div class="lang-selector">
+                                            <button type="button" class="lang-button" data-language-name="bash">bash</button>
+                                            <button type="button" class="lang-button" data-language-name="javascript">javascript</button>
+                    </div>
+    
+    <div class="search">
+        <input type="text" class="search" id="input-search" placeholder="Search">
+    </div>
+
+    <div id="toc">
+                    <ul id="tocify-header-introduction" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="introduction">
+                    <a href="#introduction">Introduction</a>
+                </li>
+                            </ul>
+                    <ul id="tocify-header-authenticating-requests" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="authenticating-requests">
+                    <a href="#authenticating-requests">Authenticating requests</a>
+                </li>
+                            </ul>
+                    <ul id="tocify-header-companies" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="companies">
+                    <a href="#companies">Companies</a>
+                </li>
+                                    <ul id="tocify-subheader-companies" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="companies-GETapi-v1-companies">
+                                <a href="#companies-GETapi-v1-companies">GET api/v1/companies</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="companies-POSTapi-v1-companies">
+                                <a href="#companies-POSTapi-v1-companies">POST api/v1/companies</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="companies-GETapi-v1-companies--company-">
+                                <a href="#companies-GETapi-v1-companies--company-">GET api/v1/companies/{company}</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="companies-PUTapi-v1-companies--company-">
+                                <a href="#companies-PUTapi-v1-companies--company-">PUT api/v1/companies/{company}</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="companies-DELETEapi-v1-companies--company-">
+                                <a href="#companies-DELETEapi-v1-companies--company-">DELETE api/v1/companies/{company}</a>
+                            </li>
+                                                                        </ul>
+                            </ul>
+                    <ul id="tocify-header-endpoints" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="endpoints">
+                    <a href="#endpoints">Endpoints</a>
+                </li>
+                                    <ul id="tocify-subheader-endpoints" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="endpoints-GETapi-user">
+                                <a href="#endpoints-GETapi-user">GET api/user</a>
+                            </li>
+                                                                        </ul>
+                            </ul>
+                    <ul id="tocify-header-stations" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="stations">
+                    <a href="#stations">Stations</a>
+                </li>
+                                    <ul id="tocify-subheader-stations" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="stations-POSTapi-v1-stations-search">
+                                <a href="#stations-POSTapi-v1-stations-search">POST api/v1/stations/search</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="stations-GETapi-v1-stations">
+                                <a href="#stations-GETapi-v1-stations">GET api/v1/stations</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="stations-POSTapi-v1-stations">
+                                <a href="#stations-POSTapi-v1-stations">POST api/v1/stations</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="stations-GETapi-v1-stations--station-">
+                                <a href="#stations-GETapi-v1-stations--station-">GET api/v1/stations/{station}</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="stations-PUTapi-v1-stations--station-">
+                                <a href="#stations-PUTapi-v1-stations--station-">PUT api/v1/stations/{station}</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="stations-DELETEapi-v1-stations--station-">
+                                <a href="#stations-DELETEapi-v1-stations--station-">DELETE api/v1/stations/{station}</a>
+                            </li>
+                                                                        </ul>
+                            </ul>
+            </div>
+
+    <ul class="toc-footer" id="toc-footer">
+                    <li style="padding-bottom: 5px;"><a href="../docs/collection.json">View Postman collection</a></li>
+                            <li style="padding-bottom: 5px;"><a href="../docs/openapi.yaml">View OpenAPI spec</a></li>
+                <li><a href="http://github.com/knuckleswtf/scribe">Documentation powered by Scribe ✍</a></li>
+    </ul>
+
+    <ul class="toc-footer" id="last-updated">
+        <li>Last updated: August 12, 2023</li>
+    </ul>
+</div>
+
+<div class="page-wrapper">
+    <div class="dark-box"></div>
+    <div class="content">
+        <h1 id="introduction">Introduction</h1>
+<aside>
+    <strong>Base URL</strong>: <code>http://localhost</code>
+</aside>
+<p>This documentation aims to provide all the information you need to work with our API.</p>
+<aside>As you scroll, you'll see code examples for working with the API in different programming languages in the dark area to the right (or as part of the content on mobile).
+You can switch the language used with the tabs at the top right (or from the nav menu at the top left on mobile).</aside>
+
+        <h1 id="authenticating-requests">Authenticating requests</h1>
+<p>This API is not authenticated.</p>
+
+        <h1 id="companies">Companies</h1>
+
+    
+
+                                <h2 id="companies-GETapi-v1-companies">GET api/v1/companies</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-GETapi-v1-companies">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://localhost/api/v1/companies" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/v1/companies"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-v1-companies">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary style="cursor: pointer;">
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+x-ratelimit-limit: 60
+x-ratelimit-remaining: 57
+access-control-allow-origin: *
+ </code></pre></details>         <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;data&quot;: [
+        {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+            &quot;parent&quot;: null
+        }
+    ],
+    &quot;links&quot;: {
+        &quot;first&quot;: &quot;http://localhost/api/v1/companies?page=1&quot;,
+        &quot;last&quot;: &quot;http://localhost/api/v1/companies?page=1&quot;,
+        &quot;prev&quot;: null,
+        &quot;next&quot;: null
+    },
+    &quot;meta&quot;: {
+        &quot;current_page&quot;: 1,
+        &quot;from&quot;: 1,
+        &quot;last_page&quot;: 1,
+        &quot;links&quot;: [
+            {
+                &quot;url&quot;: null,
+                &quot;label&quot;: &quot;&amp;laquo; Previous&quot;,
+                &quot;active&quot;: false
+            },
+            {
+                &quot;url&quot;: &quot;http://localhost/api/v1/companies?page=1&quot;,
+                &quot;label&quot;: &quot;1&quot;,
+                &quot;active&quot;: true
+            },
+            {
+                &quot;url&quot;: null,
+                &quot;label&quot;: &quot;Next &amp;raquo;&quot;,
+                &quot;active&quot;: false
+            }
+        ],
+        &quot;path&quot;: &quot;http://localhost/api/v1/companies&quot;,
+        &quot;per_page&quot;: 100,
+        &quot;to&quot;: 1,
+        &quot;total&quot;: 1
+    }
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-v1-companies" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-v1-companies"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-v1-companies"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-v1-companies" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-v1-companies">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-v1-companies" data-method="GET"
+      data-path="api/v1/companies"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-v1-companies', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-v1-companies"
+                    onclick="tryItOut('GETapi-v1-companies');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-v1-companies"
+                    onclick="cancelTryOut('GETapi-v1-companies');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-v1-companies"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/v1/companies</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-v1-companies"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-v1-companies"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        </form>
+
+                    <h2 id="companies-POSTapi-v1-companies">POST api/v1/companies</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-POSTapi-v1-companies">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://localhost/api/v1/companies" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"name\": \"saepe\",
+    \"parent_company_id\": 14
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/v1/companies"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "name": "saepe",
+    "parent_company_id": 14
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-v1-companies">
+</span>
+<span id="execution-results-POSTapi-v1-companies" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-v1-companies"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-v1-companies"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-v1-companies" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-v1-companies">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-v1-companies" data-method="POST"
+      data-path="api/v1/companies"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-v1-companies', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-v1-companies"
+                    onclick="tryItOut('POSTapi-v1-companies');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-v1-companies"
+                    onclick="cancelTryOut('POSTapi-v1-companies');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-v1-companies"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/v1/companies</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-v1-companies"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-v1-companies"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>name</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="name"                data-endpoint="POSTapi-v1-companies"
+               value="saepe"
+               data-component="body">
+    <br>
+<p>Example: <code>saepe</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>parent_company_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="parent_company_id"                data-endpoint="POSTapi-v1-companies"
+               value="14"
+               data-component="body">
+    <br>
+<p>Example: <code>14</code></p>
+        </div>
+        </form>
+
+                    <h2 id="companies-GETapi-v1-companies--company-">GET api/v1/companies/{company}</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-GETapi-v1-companies--company-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://localhost/api/v1/companies/11" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/v1/companies/11"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-v1-companies--company-">
+            <blockquote>
+            <p>Example response (404):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary style="cursor: pointer;">
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+x-ratelimit-limit: 60
+x-ratelimit-remaining: 56
+access-control-allow-origin: *
+ </code></pre></details>         <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;Not found&quot;,
+    &quot;code&quot;: 0,
+    &quot;error_message&quot;: &quot;No query results for model [App\\Modules\\Company\\Models\\Company] 11&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-v1-companies--company-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-v1-companies--company-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-v1-companies--company-"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-v1-companies--company-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-v1-companies--company-">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-v1-companies--company-" data-method="GET"
+      data-path="api/v1/companies/{company}"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-v1-companies--company-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-v1-companies--company-"
+                    onclick="tryItOut('GETapi-v1-companies--company-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-v1-companies--company-"
+                    onclick="cancelTryOut('GETapi-v1-companies--company-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-v1-companies--company-"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/v1/companies/{company}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-v1-companies--company-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-v1-companies--company-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>company</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="company"                data-endpoint="GETapi-v1-companies--company-"
+               value="11"
+               data-component="url">
+    <br>
+<p>The ID of the company. Example: <code>11</code></p>
+            </div>
+                    </form>
+
+                    <h2 id="companies-PUTapi-v1-companies--company-">PUT api/v1/companies/{company}</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-PUTapi-v1-companies--company-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request PUT \
+    "http://localhost/api/v1/companies/3" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"name\": \"et\",
+    \"parent_company_id\": 18
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/v1/companies/3"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "name": "et",
+    "parent_company_id": 18
+};
+
+fetch(url, {
+    method: "PUT",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-PUTapi-v1-companies--company-">
+</span>
+<span id="execution-results-PUTapi-v1-companies--company-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-PUTapi-v1-companies--company-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-PUTapi-v1-companies--company-"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-PUTapi-v1-companies--company-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-PUTapi-v1-companies--company-">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-PUTapi-v1-companies--company-" data-method="PUT"
+      data-path="api/v1/companies/{company}"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('PUTapi-v1-companies--company-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-PUTapi-v1-companies--company-"
+                    onclick="tryItOut('PUTapi-v1-companies--company-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-PUTapi-v1-companies--company-"
+                    onclick="cancelTryOut('PUTapi-v1-companies--company-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-PUTapi-v1-companies--company-"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-darkblue">PUT</small>
+            <b><code>api/v1/companies/{company}</code></b>
+        </p>
+            <p>
+            <small class="badge badge-purple">PATCH</small>
+            <b><code>api/v1/companies/{company}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="PUTapi-v1-companies--company-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="PUTapi-v1-companies--company-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>company</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="company"                data-endpoint="PUTapi-v1-companies--company-"
+               value="3"
+               data-component="url">
+    <br>
+<p>The ID of the company. Example: <code>3</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>name</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="name"                data-endpoint="PUTapi-v1-companies--company-"
+               value="et"
+               data-component="body">
+    <br>
+<p>Example: <code>et</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>parent_company_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="parent_company_id"                data-endpoint="PUTapi-v1-companies--company-"
+               value="18"
+               data-component="body">
+    <br>
+<p>Example: <code>18</code></p>
+        </div>
+        </form>
+
+                    <h2 id="companies-DELETEapi-v1-companies--company-">DELETE api/v1/companies/{company}</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-DELETEapi-v1-companies--company-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request DELETE \
+    "http://localhost/api/v1/companies/19" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/v1/companies/19"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "DELETE",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-DELETEapi-v1-companies--company-">
+</span>
+<span id="execution-results-DELETEapi-v1-companies--company-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-DELETEapi-v1-companies--company-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-DELETEapi-v1-companies--company-"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-DELETEapi-v1-companies--company-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-DELETEapi-v1-companies--company-">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-DELETEapi-v1-companies--company-" data-method="DELETE"
+      data-path="api/v1/companies/{company}"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('DELETEapi-v1-companies--company-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-DELETEapi-v1-companies--company-"
+                    onclick="tryItOut('DELETEapi-v1-companies--company-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-DELETEapi-v1-companies--company-"
+                    onclick="cancelTryOut('DELETEapi-v1-companies--company-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-DELETEapi-v1-companies--company-"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-red">DELETE</small>
+            <b><code>api/v1/companies/{company}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="DELETEapi-v1-companies--company-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="DELETEapi-v1-companies--company-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>company</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="company"                data-endpoint="DELETEapi-v1-companies--company-"
+               value="19"
+               data-component="url">
+    <br>
+<p>The ID of the company. Example: <code>19</code></p>
+            </div>
+                    </form>
+
+                <h1 id="endpoints">Endpoints</h1>
+
+    
+
+                                <h2 id="endpoints-GETapi-user">GET api/user</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-GETapi-user">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://localhost/api/user" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/user"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-user">
+            <blockquote>
+            <p>Example response (500):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary style="cursor: pointer;">
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+access-control-allow-origin: *
+ </code></pre></details>         <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;Server error&quot;,
+    &quot;code&quot;: 0,
+    &quot;error_message&quot;: &quot;Unauthenticated.&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-user" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-user"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-user"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-user" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-user">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-user" data-method="GET"
+      data-path="api/user"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-user', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-user"
+                    onclick="tryItOut('GETapi-user');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-user"
+                    onclick="cancelTryOut('GETapi-user');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-user"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/user</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-user"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-user"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        </form>
+
+                <h1 id="stations">Stations</h1>
+
+    
+
+                                <h2 id="stations-POSTapi-v1-stations-search">POST api/v1/stations/search</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-POSTapi-v1-stations-search">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://localhost/api/v1/stations/search" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"latitude\": -90,
+    \"longitude\": -179,
+    \"company_id\": 18,
+    \"radius\": 9
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/v1/stations/search"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "latitude": -90,
+    "longitude": -179,
+    "company_id": 18,
+    "radius": 9
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-v1-stations-search">
+</span>
+<span id="execution-results-POSTapi-v1-stations-search" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-v1-stations-search"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-v1-stations-search"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-v1-stations-search" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-v1-stations-search">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-v1-stations-search" data-method="POST"
+      data-path="api/v1/stations/search"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-v1-stations-search', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-v1-stations-search"
+                    onclick="tryItOut('POSTapi-v1-stations-search');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-v1-stations-search"
+                    onclick="cancelTryOut('POSTapi-v1-stations-search');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-v1-stations-search"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/v1/stations/search</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-v1-stations-search"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-v1-stations-search"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>latitude</code></b>&nbsp;&nbsp;
+<small>number</small>&nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="latitude"                data-endpoint="POSTapi-v1-stations-search"
+               value="-90"
+               data-component="body">
+    <br>
+<p>Must be between -90 and 90. Example: <code>-90</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>longitude</code></b>&nbsp;&nbsp;
+<small>number</small>&nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="longitude"                data-endpoint="POSTapi-v1-stations-search"
+               value="-179"
+               data-component="body">
+    <br>
+<p>Must be between -180 and 180. Example: <code>-179</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>company_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="company_id"                data-endpoint="POSTapi-v1-stations-search"
+               value="18"
+               data-component="body">
+    <br>
+<p>Example: <code>18</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>radius</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="radius"                data-endpoint="POSTapi-v1-stations-search"
+               value="9"
+               data-component="body">
+    <br>
+<p>Example: <code>9</code></p>
+        </div>
+        </form>
+
+                    <h2 id="stations-GETapi-v1-stations">GET api/v1/stations</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-GETapi-v1-stations">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://localhost/api/v1/stations" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/v1/stations"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-v1-stations">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary style="cursor: pointer;">
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+x-ratelimit-limit: 60
+x-ratelimit-remaining: 59
+access-control-allow-origin: *
+ </code></pre></details>         <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;data&quot;: [
+        {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;Joey Weissnat&quot;,
+            &quot;latitude&quot;: &quot;37.19880400&quot;,
+            &quot;longitude&quot;: &quot;172.56596400&quot;,
+            &quot;address&quot;: &quot;64361 Leone Roads Suite 994\nRainastad, MO 32636&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 2,
+            &quot;name&quot;: &quot;Audie Moore DVM&quot;,
+            &quot;latitude&quot;: &quot;-7.00785000&quot;,
+            &quot;longitude&quot;: &quot;128.80662100&quot;,
+            &quot;address&quot;: &quot;880 Pfeffer Brooks Suite 381\nPort Alexzanderfort, IA 48295-1971&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 3,
+            &quot;name&quot;: &quot;Chandler Rolfson&quot;,
+            &quot;latitude&quot;: &quot;-83.10033300&quot;,
+            &quot;longitude&quot;: &quot;28.20497900&quot;,
+            &quot;address&quot;: &quot;9707 Sienna Skyway Apt. 294\nLake Dayneland, AL 13517&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 4,
+            &quot;name&quot;: &quot;Alanis West V&quot;,
+            &quot;latitude&quot;: &quot;-74.18962900&quot;,
+            &quot;longitude&quot;: &quot;2.67893900&quot;,
+            &quot;address&quot;: &quot;887 Weber Hill\nLavadaborough, WI 40187&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 5,
+            &quot;name&quot;: &quot;Manley Johnson&quot;,
+            &quot;latitude&quot;: &quot;-75.93840800&quot;,
+            &quot;longitude&quot;: &quot;154.09786400&quot;,
+            &quot;address&quot;: &quot;428 Mraz Prairie\nNew Cyrus, IA 11771&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 6,
+            &quot;name&quot;: &quot;Finn Bailey&quot;,
+            &quot;latitude&quot;: &quot;-59.07143600&quot;,
+            &quot;longitude&quot;: &quot;15.04007000&quot;,
+            &quot;address&quot;: &quot;538 Koelpin Fort Suite 267\nEunicefort, CT 33363-9174&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 7,
+            &quot;name&quot;: &quot;Dr. Susana Labadie Sr.&quot;,
+            &quot;latitude&quot;: &quot;-39.84252800&quot;,
+            &quot;longitude&quot;: &quot;-70.82296900&quot;,
+            &quot;address&quot;: &quot;755 Shayne Dam\nDurganberg, IA 45233-1167&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 8,
+            &quot;name&quot;: &quot;Whitney Waters&quot;,
+            &quot;latitude&quot;: &quot;-38.74500200&quot;,
+            &quot;longitude&quot;: &quot;-125.47366400&quot;,
+            &quot;address&quot;: &quot;43254 Johnson Spurs\nMannburgh, NE 90588&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 9,
+            &quot;name&quot;: &quot;Monserrate Swift&quot;,
+            &quot;latitude&quot;: &quot;-70.17508100&quot;,
+            &quot;longitude&quot;: &quot;42.93809700&quot;,
+            &quot;address&quot;: &quot;50278 Charles Creek\nMervinberg, CA 51935&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 10,
+            &quot;name&quot;: &quot;accusamus&quot;,
+            &quot;latitude&quot;: &quot;-89.00000000&quot;,
+            &quot;longitude&quot;: &quot;-179.00000000&quot;,
+            &quot;address&quot;: &quot;earum&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 11,
+            &quot;name&quot;: &quot;Miss Lia Kiehn I&quot;,
+            &quot;latitude&quot;: &quot;38.50823400&quot;,
+            &quot;longitude&quot;: &quot;58.84753800&quot;,
+            &quot;address&quot;: &quot;70989 Osinski Heights Apt. 232\nRuntechester, AR 34931&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 12,
+            &quot;name&quot;: &quot;Winona Stamm&quot;,
+            &quot;latitude&quot;: &quot;-61.35653500&quot;,
+            &quot;longitude&quot;: &quot;-155.38444000&quot;,
+            &quot;address&quot;: &quot;167 Hansen Forest Apt. 845\nRosalindburgh, NY 15391-9794&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 13,
+            &quot;name&quot;: &quot;Valentina Ledner&quot;,
+            &quot;latitude&quot;: &quot;-57.28825900&quot;,
+            &quot;longitude&quot;: &quot;-60.39758600&quot;,
+            &quot;address&quot;: &quot;975 Michael Stravenue\nNorth Odieshire, NM 26986&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 14,
+            &quot;name&quot;: &quot;Ms. Sonia Schumm DVM&quot;,
+            &quot;latitude&quot;: &quot;62.09622700&quot;,
+            &quot;longitude&quot;: &quot;101.88921300&quot;,
+            &quot;address&quot;: &quot;10134 Windler Roads\nRueckerstad, PA 79540&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 15,
+            &quot;name&quot;: &quot;Chanel Welch&quot;,
+            &quot;latitude&quot;: &quot;74.51331800&quot;,
+            &quot;longitude&quot;: &quot;-176.58827600&quot;,
+            &quot;address&quot;: &quot;8740 Naomi Prairie Apt. 523\nEast Jaylin, PA 13906&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 16,
+            &quot;name&quot;: &quot;Jarod Aufderhar&quot;,
+            &quot;latitude&quot;: &quot;83.58812900&quot;,
+            &quot;longitude&quot;: &quot;-51.10225100&quot;,
+            &quot;address&quot;: &quot;373 Dorothy Shoal Apt. 098\nPort Maeveside, OK 11256-1597&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 17,
+            &quot;name&quot;: &quot;Kacey Wintheiser IV&quot;,
+            &quot;latitude&quot;: &quot;53.02189700&quot;,
+            &quot;longitude&quot;: &quot;-46.80115300&quot;,
+            &quot;address&quot;: &quot;453 Pedro Ridges\nPort Justice, MS 54986-7308&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 18,
+            &quot;name&quot;: &quot;Ms. Alvina Lemke Sr.&quot;,
+            &quot;latitude&quot;: &quot;-11.63245700&quot;,
+            &quot;longitude&quot;: &quot;-66.80693200&quot;,
+            &quot;address&quot;: &quot;38252 Terrill Spring Suite 457\nWestborough, ME 09423&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 19,
+            &quot;name&quot;: &quot;Prof. Marcelina Conn MD&quot;,
+            &quot;latitude&quot;: &quot;10.60348700&quot;,
+            &quot;longitude&quot;: &quot;-81.07040000&quot;,
+            &quot;address&quot;: &quot;86372 Zemlak Island\nEast Melyssa, WA 80167&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 20,
+            &quot;name&quot;: &quot;Mr. Casimir Tromp II&quot;,
+            &quot;latitude&quot;: &quot;-24.38252200&quot;,
+            &quot;longitude&quot;: &quot;138.82513000&quot;,
+            &quot;address&quot;: &quot;2683 Frieda Dam\nKerlukeside, MO 17993-9828&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 21,
+            &quot;name&quot;: &quot;Prof. Gideon Gutkowski&quot;,
+            &quot;latitude&quot;: &quot;12.63204300&quot;,
+            &quot;longitude&quot;: &quot;-133.50159100&quot;,
+            &quot;address&quot;: &quot;8677 Corkery Streets Suite 198\nNew Sylvanburgh, OH 68911&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 22,
+            &quot;name&quot;: &quot;Prof. Rosendo Rempel&quot;,
+            &quot;latitude&quot;: &quot;43.69953900&quot;,
+            &quot;longitude&quot;: &quot;106.43470700&quot;,
+            &quot;address&quot;: &quot;5984 Josue Viaduct\nClintchester, KY 05162-2736&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 23,
+            &quot;name&quot;: &quot;Heather Lemke&quot;,
+            &quot;latitude&quot;: &quot;23.41093000&quot;,
+            &quot;longitude&quot;: &quot;83.39639100&quot;,
+            &quot;address&quot;: &quot;2777 Corrine Springs Apt. 497\nQuentinside, WV 13843-7227&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 24,
+            &quot;name&quot;: &quot;Macie Will&quot;,
+            &quot;latitude&quot;: &quot;-32.43269100&quot;,
+            &quot;longitude&quot;: &quot;50.91279000&quot;,
+            &quot;address&quot;: &quot;40959 Yesenia Wells Suite 049\nRebeccafurt, PA 44288&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 25,
+            &quot;name&quot;: &quot;Dr. Quinn Pacocha IV&quot;,
+            &quot;latitude&quot;: &quot;73.50961800&quot;,
+            &quot;longitude&quot;: &quot;-148.97915000&quot;,
+            &quot;address&quot;: &quot;483 Keebler Hollow Suite 865\nFaustotown, AK 37154-5663&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 26,
+            &quot;name&quot;: &quot;Pat Weber Sr.&quot;,
+            &quot;latitude&quot;: &quot;-22.00164900&quot;,
+            &quot;longitude&quot;: &quot;98.40522700&quot;,
+            &quot;address&quot;: &quot;3519 Savanah Alley\nKaileymouth, WV 16098-6134&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 27,
+            &quot;name&quot;: &quot;Price Champlin&quot;,
+            &quot;latitude&quot;: &quot;-43.58836300&quot;,
+            &quot;longitude&quot;: &quot;-0.37542100&quot;,
+            &quot;address&quot;: &quot;45146 Raynor Stravenue Apt. 789\nEllentown, MS 48040-8708&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 28,
+            &quot;name&quot;: &quot;Carolanne Yundt&quot;,
+            &quot;latitude&quot;: &quot;1.80609200&quot;,
+            &quot;longitude&quot;: &quot;-64.01917000&quot;,
+            &quot;address&quot;: &quot;30058 McKenzie Shores Suite 346\nKilbackberg, MO 00665-1566&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 29,
+            &quot;name&quot;: &quot;Abby Grimes&quot;,
+            &quot;latitude&quot;: &quot;1.28280300&quot;,
+            &quot;longitude&quot;: &quot;-167.72915500&quot;,
+            &quot;address&quot;: &quot;39571 Hirthe Port Apt. 370\nEast Rosafurt, HI 46917&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 30,
+            &quot;name&quot;: &quot;Rashad Mante&quot;,
+            &quot;latitude&quot;: &quot;65.34465800&quot;,
+            &quot;longitude&quot;: &quot;-56.98077800&quot;,
+            &quot;address&quot;: &quot;703 Richard Roads Apt. 293\nDavismouth, IA 49906-6822&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 31,
+            &quot;name&quot;: &quot;Linnea Leuschke&quot;,
+            &quot;latitude&quot;: &quot;-65.72962500&quot;,
+            &quot;longitude&quot;: &quot;31.77585100&quot;,
+            &quot;address&quot;: &quot;8237 Hintz Plains\nEast Kailee, NE 47415&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 32,
+            &quot;name&quot;: &quot;Amiya Little&quot;,
+            &quot;latitude&quot;: &quot;-50.43513400&quot;,
+            &quot;longitude&quot;: &quot;171.72572000&quot;,
+            &quot;address&quot;: &quot;7879 Bashirian Corners Suite 972\nGeraldton, VT 50934&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 33,
+            &quot;name&quot;: &quot;Dr. Ebony Stanton IV&quot;,
+            &quot;latitude&quot;: &quot;28.13755200&quot;,
+            &quot;longitude&quot;: &quot;84.43150000&quot;,
+            &quot;address&quot;: &quot;68129 Green Hills Apt. 273\nSimonisstad, NY 92895-7588&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 34,
+            &quot;name&quot;: &quot;Shane Boehm&quot;,
+            &quot;latitude&quot;: &quot;-56.82445100&quot;,
+            &quot;longitude&quot;: &quot;-10.86000700&quot;,
+            &quot;address&quot;: &quot;631 O&#039;Kon Route Suite 281\nNew Okey, OH 87358-6898&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 35,
+            &quot;name&quot;: &quot;Dr. Agnes Bayer&quot;,
+            &quot;latitude&quot;: &quot;-18.66777700&quot;,
+            &quot;longitude&quot;: &quot;-156.97259900&quot;,
+            &quot;address&quot;: &quot;2846 Jennings Branch\nRauview, NE 00445&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 36,
+            &quot;name&quot;: &quot;Sasha Daniel&quot;,
+            &quot;latitude&quot;: &quot;-57.04869200&quot;,
+            &quot;longitude&quot;: &quot;158.56128800&quot;,
+            &quot;address&quot;: &quot;25179 Metz Well Apt. 967\nEast Jewel, KS 95216-1309&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 37,
+            &quot;name&quot;: &quot;Mr. Will Kerluke&quot;,
+            &quot;latitude&quot;: &quot;-41.97390800&quot;,
+            &quot;longitude&quot;: &quot;71.40622500&quot;,
+            &quot;address&quot;: &quot;722 Izabella Landing\nPort Camilleberg, AL 04800&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 38,
+            &quot;name&quot;: &quot;Jaydon Mayer&quot;,
+            &quot;latitude&quot;: &quot;6.95663200&quot;,
+            &quot;longitude&quot;: &quot;96.86532200&quot;,
+            &quot;address&quot;: &quot;2920 Huels View Apt. 072\nWest Fayshire, SC 06781&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 39,
+            &quot;name&quot;: &quot;Mittie Runolfsdottir&quot;,
+            &quot;latitude&quot;: &quot;81.36825500&quot;,
+            &quot;longitude&quot;: &quot;169.16521700&quot;,
+            &quot;address&quot;: &quot;51373 Aurelia Divide\nSouth Brantview, AR 40569-7921&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 40,
+            &quot;name&quot;: &quot;Dr. Sean Welch II&quot;,
+            &quot;latitude&quot;: &quot;-5.61460800&quot;,
+            &quot;longitude&quot;: &quot;-44.15573700&quot;,
+            &quot;address&quot;: &quot;13436 Lola Islands\nGerholdville, NY 11321&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 41,
+            &quot;name&quot;: &quot;Dr. Kameron D&#039;Amore&quot;,
+            &quot;latitude&quot;: &quot;-56.97765500&quot;,
+            &quot;longitude&quot;: &quot;18.00543900&quot;,
+            &quot;address&quot;: &quot;976 Marjolaine Terrace Apt. 344\nLake Rudy, AZ 54418-4126&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 42,
+            &quot;name&quot;: &quot;Dr. Bryana Heathcote&quot;,
+            &quot;latitude&quot;: &quot;26.82027200&quot;,
+            &quot;longitude&quot;: &quot;-41.87971700&quot;,
+            &quot;address&quot;: &quot;282 O&#039;Kon Creek\nPort Amelia, IN 56060-0943&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 43,
+            &quot;name&quot;: &quot;Nicholaus Mertz&quot;,
+            &quot;latitude&quot;: &quot;-87.37065300&quot;,
+            &quot;longitude&quot;: &quot;-118.16161600&quot;,
+            &quot;address&quot;: &quot;73750 Emery Spring Apt. 380\nStokesfurt, WA 00810-0636&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 44,
+            &quot;name&quot;: &quot;Prof. Dariana Wiza&quot;,
+            &quot;latitude&quot;: &quot;47.75056200&quot;,
+            &quot;longitude&quot;: &quot;-177.26862900&quot;,
+            &quot;address&quot;: &quot;494 Skye Causeway\nNorth Frank, MI 39773&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 45,
+            &quot;name&quot;: &quot;Candelario Daugherty&quot;,
+            &quot;latitude&quot;: &quot;-30.92614600&quot;,
+            &quot;longitude&quot;: &quot;-111.01799500&quot;,
+            &quot;address&quot;: &quot;18663 Addison Brooks Suite 967\nMooremouth, NJ 56971&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 46,
+            &quot;name&quot;: &quot;Ephraim Friesen&quot;,
+            &quot;latitude&quot;: &quot;-50.85804500&quot;,
+            &quot;longitude&quot;: &quot;-138.87590200&quot;,
+            &quot;address&quot;: &quot;5913 Krista Lock Suite 373\nGusikowskiview, CO 61125&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 47,
+            &quot;name&quot;: &quot;Kariane Jenkins&quot;,
+            &quot;latitude&quot;: &quot;2.70117200&quot;,
+            &quot;longitude&quot;: &quot;-136.80280300&quot;,
+            &quot;address&quot;: &quot;62215 Berge Walk\nSouth Yoshikoport, SC 15341&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 48,
+            &quot;name&quot;: &quot;Yasmin Bergnaum&quot;,
+            &quot;latitude&quot;: &quot;43.11929200&quot;,
+            &quot;longitude&quot;: &quot;-137.63788700&quot;,
+            &quot;address&quot;: &quot;5152 Astrid Valleys\nLavinaport, ME 62118&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 49,
+            &quot;name&quot;: &quot;Riley Hagenes&quot;,
+            &quot;latitude&quot;: &quot;-43.33214900&quot;,
+            &quot;longitude&quot;: &quot;168.77616200&quot;,
+            &quot;address&quot;: &quot;7779 Gleason Fords Suite 656\nLowellmouth, SD 08490&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 50,
+            &quot;name&quot;: &quot;Daisy McDermott III&quot;,
+            &quot;latitude&quot;: &quot;52.43334400&quot;,
+            &quot;longitude&quot;: &quot;-60.54210000&quot;,
+            &quot;address&quot;: &quot;886 Camryn Locks Suite 277\nSouth Lydia, CA 97654-3021&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 51,
+            &quot;name&quot;: &quot;Mr. Alfredo Denesik&quot;,
+            &quot;latitude&quot;: &quot;-6.35594000&quot;,
+            &quot;longitude&quot;: &quot;160.64913200&quot;,
+            &quot;address&quot;: &quot;3923 O&#039;Reilly Hills\nNew Keshawn, NC 60311&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 52,
+            &quot;name&quot;: &quot;Ronaldo Tillman&quot;,
+            &quot;latitude&quot;: &quot;49.67193500&quot;,
+            &quot;longitude&quot;: &quot;-167.72360800&quot;,
+            &quot;address&quot;: &quot;4702 Emile Point Apt. 588\nNew Allybury, NE 04524-8343&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 53,
+            &quot;name&quot;: &quot;Paula Goyette&quot;,
+            &quot;latitude&quot;: &quot;-3.12925700&quot;,
+            &quot;longitude&quot;: &quot;-21.59936100&quot;,
+            &quot;address&quot;: &quot;4293 Beau Harbor\nJaydonfurt, NM 53941-9722&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 54,
+            &quot;name&quot;: &quot;Geovany Schuster&quot;,
+            &quot;latitude&quot;: &quot;6.39107200&quot;,
+            &quot;longitude&quot;: &quot;12.94672000&quot;,
+            &quot;address&quot;: &quot;9764 Romaguera Rapids\nDinaville, SC 92078-3579&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 55,
+            &quot;name&quot;: &quot;Aletha Simonis&quot;,
+            &quot;latitude&quot;: &quot;58.26000300&quot;,
+            &quot;longitude&quot;: &quot;79.66431800&quot;,
+            &quot;address&quot;: &quot;21141 Ortiz Groves Apt. 066\nDavisfort, SC 79508&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 56,
+            &quot;name&quot;: &quot;Mr. Rocio Cronin V&quot;,
+            &quot;latitude&quot;: &quot;-46.57121500&quot;,
+            &quot;longitude&quot;: &quot;130.59709400&quot;,
+            &quot;address&quot;: &quot;936 Weber Glen Suite 595\nLucieport, DE 25911&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 57,
+            &quot;name&quot;: &quot;Julius Nikolaus Jr.&quot;,
+            &quot;latitude&quot;: &quot;-32.21238800&quot;,
+            &quot;longitude&quot;: &quot;-77.89215000&quot;,
+            &quot;address&quot;: &quot;2020 Santina Ramp\nWest Sydni, NC 75604-9898&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 58,
+            &quot;name&quot;: &quot;Mr. Brent Predovic&quot;,
+            &quot;latitude&quot;: &quot;58.91209200&quot;,
+            &quot;longitude&quot;: &quot;7.46254300&quot;,
+            &quot;address&quot;: &quot;766 Jonas Harbors Suite 124\nNorth Jewell, MD 22403-9244&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 59,
+            &quot;name&quot;: &quot;Trystan Torp Jr.&quot;,
+            &quot;latitude&quot;: &quot;53.23644900&quot;,
+            &quot;longitude&quot;: &quot;135.22903000&quot;,
+            &quot;address&quot;: &quot;896 Gust Drive Apt. 906\nMarquiseburgh, DC 94563&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 60,
+            &quot;name&quot;: &quot;Hardy Hermann&quot;,
+            &quot;latitude&quot;: &quot;-55.31130900&quot;,
+            &quot;longitude&quot;: &quot;-102.05912900&quot;,
+            &quot;address&quot;: &quot;730 Garry Mountains Apt. 908\nJonesburgh, NY 11013&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 61,
+            &quot;name&quot;: &quot;Prof. Jayde Dibbert&quot;,
+            &quot;latitude&quot;: &quot;25.05773600&quot;,
+            &quot;longitude&quot;: &quot;-124.95542800&quot;,
+            &quot;address&quot;: &quot;816 Langworth Garden Suite 304\nNew Myrafort, KY 29648-1654&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 62,
+            &quot;name&quot;: &quot;Dr. Carolina Nader&quot;,
+            &quot;latitude&quot;: &quot;56.49197700&quot;,
+            &quot;longitude&quot;: &quot;32.37911900&quot;,
+            &quot;address&quot;: &quot;3649 Runte Wall Apt. 712\nSouth Rickyberg, NM 69401-0871&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 63,
+            &quot;name&quot;: &quot;Dominic Simonis&quot;,
+            &quot;latitude&quot;: &quot;70.26514300&quot;,
+            &quot;longitude&quot;: &quot;173.72060400&quot;,
+            &quot;address&quot;: &quot;323 Torphy Cape Suite 845\nCheyennemouth, ME 38852-2916&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 64,
+            &quot;name&quot;: &quot;Miss Marta Corwin&quot;,
+            &quot;latitude&quot;: &quot;-0.73507200&quot;,
+            &quot;longitude&quot;: &quot;157.26141900&quot;,
+            &quot;address&quot;: &quot;7621 Armstrong Corners Apt. 539\nWest Flo, OR 29700-2497&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 65,
+            &quot;name&quot;: &quot;Franz Beahan&quot;,
+            &quot;latitude&quot;: &quot;-12.02256400&quot;,
+            &quot;longitude&quot;: &quot;133.74414700&quot;,
+            &quot;address&quot;: &quot;7352 Lubowitz Locks\nLake Deonte, MD 01379-9902&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 66,
+            &quot;name&quot;: &quot;Kamren West&quot;,
+            &quot;latitude&quot;: &quot;45.68386900&quot;,
+            &quot;longitude&quot;: &quot;-73.40918400&quot;,
+            &quot;address&quot;: &quot;346 Dulce Street Suite 413\nNew Ruby, CO 34884-0461&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 67,
+            &quot;name&quot;: &quot;Prof. Russell Kuphal&quot;,
+            &quot;latitude&quot;: &quot;-48.46089000&quot;,
+            &quot;longitude&quot;: &quot;41.50655000&quot;,
+            &quot;address&quot;: &quot;187 Hyatt Vista\nJessieside, TX 03284-9545&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 68,
+            &quot;name&quot;: &quot;Lavina Jacobi&quot;,
+            &quot;latitude&quot;: &quot;51.84673900&quot;,
+            &quot;longitude&quot;: &quot;-159.28706200&quot;,
+            &quot;address&quot;: &quot;780 Dorothea Burgs Apt. 891\nNew Clovis, GA 23180-0298&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 69,
+            &quot;name&quot;: &quot;Syble Jacobs IV&quot;,
+            &quot;latitude&quot;: &quot;-73.26908400&quot;,
+            &quot;longitude&quot;: &quot;-29.25751200&quot;,
+            &quot;address&quot;: &quot;624 Kunze Path\nEast Bernieberg, VA 10255-5989&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 70,
+            &quot;name&quot;: &quot;Preston O&#039;Keefe&quot;,
+            &quot;latitude&quot;: &quot;-58.57508600&quot;,
+            &quot;longitude&quot;: &quot;-119.43136000&quot;,
+            &quot;address&quot;: &quot;817 Alfreda Ways Suite 108\nEast Tillman, LA 34623&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 71,
+            &quot;name&quot;: &quot;Amani Kerluke&quot;,
+            &quot;latitude&quot;: &quot;-31.51418300&quot;,
+            &quot;longitude&quot;: &quot;-173.06476900&quot;,
+            &quot;address&quot;: &quot;757 Thalia Squares Suite 363\nNorth Alan, ME 95558&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 72,
+            &quot;name&quot;: &quot;Neoma Kiehn PhD&quot;,
+            &quot;latitude&quot;: &quot;24.92614500&quot;,
+            &quot;longitude&quot;: &quot;11.07032500&quot;,
+            &quot;address&quot;: &quot;21833 Wilber Bridge Suite 451\nWest Salvatore, MA 87919&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 73,
+            &quot;name&quot;: &quot;Marc Yundt&quot;,
+            &quot;latitude&quot;: &quot;17.58199900&quot;,
+            &quot;longitude&quot;: &quot;68.53825500&quot;,
+            &quot;address&quot;: &quot;594 Kathryne Meadows Apt. 801\nMinervatown, ND 60036-3286&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 74,
+            &quot;name&quot;: &quot;Caden Wuckert&quot;,
+            &quot;latitude&quot;: &quot;-76.22576800&quot;,
+            &quot;longitude&quot;: &quot;24.26966600&quot;,
+            &quot;address&quot;: &quot;425 Lang Row Suite 762\nGermanshire, NV 61307&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 75,
+            &quot;name&quot;: &quot;Daren Heaney&quot;,
+            &quot;latitude&quot;: &quot;-10.35167600&quot;,
+            &quot;longitude&quot;: &quot;-51.70569000&quot;,
+            &quot;address&quot;: &quot;2041 Lessie Crescent\nKoleborough, WA 86171&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 76,
+            &quot;name&quot;: &quot;Neal Senger V&quot;,
+            &quot;latitude&quot;: &quot;-14.83415700&quot;,
+            &quot;longitude&quot;: &quot;19.66138000&quot;,
+            &quot;address&quot;: &quot;951 Loy Fords Apt. 619\nRowantown, MI 20202-6438&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 77,
+            &quot;name&quot;: &quot;Mrs. Ashleigh Goodwin IV&quot;,
+            &quot;latitude&quot;: &quot;78.45233400&quot;,
+            &quot;longitude&quot;: &quot;-169.43769900&quot;,
+            &quot;address&quot;: &quot;733 Veda Points Suite 154\nMetzstad, CA 63614&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 78,
+            &quot;name&quot;: &quot;Forest Smith II&quot;,
+            &quot;latitude&quot;: &quot;-0.26437300&quot;,
+            &quot;longitude&quot;: &quot;-142.87998200&quot;,
+            &quot;address&quot;: &quot;85984 Botsford Greens\nDachfurt, GA 25642-7819&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 79,
+            &quot;name&quot;: &quot;Prof. Domenico Roberts IV&quot;,
+            &quot;latitude&quot;: &quot;89.62178600&quot;,
+            &quot;longitude&quot;: &quot;-67.33677200&quot;,
+            &quot;address&quot;: &quot;64137 Mosciski Ranch Suite 042\nLake Rustyburgh, UT 90907-1490&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 80,
+            &quot;name&quot;: &quot;Jacklyn Simonis V&quot;,
+            &quot;latitude&quot;: &quot;38.84368000&quot;,
+            &quot;longitude&quot;: &quot;92.15986600&quot;,
+            &quot;address&quot;: &quot;85155 O&#039;Conner Summit\nLake Theodore, CO 89084-1687&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 81,
+            &quot;name&quot;: &quot;Miss Kylee Runte&quot;,
+            &quot;latitude&quot;: &quot;-65.41058900&quot;,
+            &quot;longitude&quot;: &quot;81.68007900&quot;,
+            &quot;address&quot;: &quot;482 Hyatt Light\nJacksontown, NC 60177-1081&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 82,
+            &quot;name&quot;: &quot;Prof. Darrion Schimmel V&quot;,
+            &quot;latitude&quot;: &quot;12.42246400&quot;,
+            &quot;longitude&quot;: &quot;48.25383000&quot;,
+            &quot;address&quot;: &quot;40836 Elaina Pine Suite 024\nLake Rylanland, DE 66694-8183&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 83,
+            &quot;name&quot;: &quot;Cesar Crona&quot;,
+            &quot;latitude&quot;: &quot;43.85808300&quot;,
+            &quot;longitude&quot;: &quot;115.07274500&quot;,
+            &quot;address&quot;: &quot;51827 Jackeline Landing Suite 788\nEast Rylanfort, WV 33860&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 84,
+            &quot;name&quot;: &quot;Nadia Fahey&quot;,
+            &quot;latitude&quot;: &quot;-33.33122000&quot;,
+            &quot;longitude&quot;: &quot;108.02419900&quot;,
+            &quot;address&quot;: &quot;9720 Walter Knoll Suite 631\nCorneliusbury, MT 37451&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 85,
+            &quot;name&quot;: &quot;Cecil Greenholt&quot;,
+            &quot;latitude&quot;: &quot;43.91901600&quot;,
+            &quot;longitude&quot;: &quot;54.09743800&quot;,
+            &quot;address&quot;: &quot;8448 Heidenreich Common Suite 607\nDeonfort, DC 85998-9541&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 86,
+            &quot;name&quot;: &quot;Abraham Aufderhar MD&quot;,
+            &quot;latitude&quot;: &quot;-70.82209600&quot;,
+            &quot;longitude&quot;: &quot;128.04698300&quot;,
+            &quot;address&quot;: &quot;16219 Huels Parkway Apt. 585\nAntoniettaberg, VA 43559&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 87,
+            &quot;name&quot;: &quot;Jamil Skiles&quot;,
+            &quot;latitude&quot;: &quot;-13.37547800&quot;,
+            &quot;longitude&quot;: &quot;-82.50816500&quot;,
+            &quot;address&quot;: &quot;22620 Davis Estates\nNew Buford, OH 77139&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 88,
+            &quot;name&quot;: &quot;Miles Sawayn&quot;,
+            &quot;latitude&quot;: &quot;66.91838300&quot;,
+            &quot;longitude&quot;: &quot;-11.03796900&quot;,
+            &quot;address&quot;: &quot;9294 Bridgette Stravenue\nSouth Merlfurt, NM 92110&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 89,
+            &quot;name&quot;: &quot;Keegan King PhD&quot;,
+            &quot;latitude&quot;: &quot;-2.54876000&quot;,
+            &quot;longitude&quot;: &quot;-112.29851400&quot;,
+            &quot;address&quot;: &quot;375 Ebert Center\nElyssafort, IN 22621&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 90,
+            &quot;name&quot;: &quot;Rylan Miller&quot;,
+            &quot;latitude&quot;: &quot;-76.17756000&quot;,
+            &quot;longitude&quot;: &quot;-81.56418400&quot;,
+            &quot;address&quot;: &quot;9690 Champlin Burgs\nBorisshire, NC 77042&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 91,
+            &quot;name&quot;: &quot;Ms. Liliana Terry V&quot;,
+            &quot;latitude&quot;: &quot;-68.80357700&quot;,
+            &quot;longitude&quot;: &quot;-86.22063000&quot;,
+            &quot;address&quot;: &quot;99829 Funk Crossing\nEuniceport, IL 28985&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 92,
+            &quot;name&quot;: &quot;Dorian Brown&quot;,
+            &quot;latitude&quot;: &quot;-64.93815300&quot;,
+            &quot;longitude&quot;: &quot;110.30216000&quot;,
+            &quot;address&quot;: &quot;13525 Leda Grove\nWest Marisashire, OH 08442-8099&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 93,
+            &quot;name&quot;: &quot;Ezra Harvey&quot;,
+            &quot;latitude&quot;: &quot;54.64561800&quot;,
+            &quot;longitude&quot;: &quot;-112.15207400&quot;,
+            &quot;address&quot;: &quot;168 Howell Corner\nBotsfordstad, AR 85931-2085&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 94,
+            &quot;name&quot;: &quot;Anabel Ward III&quot;,
+            &quot;latitude&quot;: &quot;87.36760000&quot;,
+            &quot;longitude&quot;: &quot;-153.27785800&quot;,
+            &quot;address&quot;: &quot;3648 Padberg Brook Apt. 812\nWest Zelmafurt, MN 84885&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 95,
+            &quot;name&quot;: &quot;Benedict Murazik&quot;,
+            &quot;latitude&quot;: &quot;70.02509600&quot;,
+            &quot;longitude&quot;: &quot;-98.69608800&quot;,
+            &quot;address&quot;: &quot;6835 Langworth Lodge Suite 924\nNormaburgh, RI 26158&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 96,
+            &quot;name&quot;: &quot;Roel Lesch PhD&quot;,
+            &quot;latitude&quot;: &quot;-26.86535400&quot;,
+            &quot;longitude&quot;: &quot;-13.39860600&quot;,
+            &quot;address&quot;: &quot;9362 Renee Drive Suite 828\nKristophertown, WA 68091&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 97,
+            &quot;name&quot;: &quot;Hope Hickle&quot;,
+            &quot;latitude&quot;: &quot;-24.29732500&quot;,
+            &quot;longitude&quot;: &quot;178.43084000&quot;,
+            &quot;address&quot;: &quot;47170 Gia Key Suite 219\nDarbyshire, NC 18039&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 98,
+            &quot;name&quot;: &quot;Cornell Koelpin&quot;,
+            &quot;latitude&quot;: &quot;41.67991200&quot;,
+            &quot;longitude&quot;: &quot;10.49675000&quot;,
+            &quot;address&quot;: &quot;58529 Julius Underpass Suite 415\nLake Brettville, RI 63532&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 99,
+            &quot;name&quot;: &quot;Rashawn Goyette&quot;,
+            &quot;latitude&quot;: &quot;72.85464600&quot;,
+            &quot;longitude&quot;: &quot;108.05283100&quot;,
+            &quot;address&quot;: &quot;66287 Andreanne Burgs\nSouth Rigoberto, NJ 51574-8284&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        },
+        {
+            &quot;id&quot;: 100,
+            &quot;name&quot;: &quot;Mr. Emerald Watsica&quot;,
+            &quot;latitude&quot;: &quot;33.06730500&quot;,
+            &quot;longitude&quot;: &quot;114.23604700&quot;,
+            &quot;address&quot;: &quot;76955 Buckridge Rest\nNorth Jaleel, DC 03882&quot;,
+            &quot;company&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+                &quot;parent&quot;: null
+            }
+        }
+    ],
+    &quot;links&quot;: {
+        &quot;first&quot;: &quot;http://localhost/api/v1/stations?page=1&quot;,
+        &quot;last&quot;: &quot;http://localhost/api/v1/stations?page=501&quot;,
+        &quot;prev&quot;: null,
+        &quot;next&quot;: &quot;http://localhost/api/v1/stations?page=2&quot;
+    },
+    &quot;meta&quot;: {
+        &quot;current_page&quot;: 1,
+        &quot;from&quot;: 1,
+        &quot;last_page&quot;: 501,
+        &quot;links&quot;: [
+            {
+                &quot;url&quot;: null,
+                &quot;label&quot;: &quot;&amp;laquo; Previous&quot;,
+                &quot;active&quot;: false
+            },
+            {
+                &quot;url&quot;: &quot;http://localhost/api/v1/stations?page=1&quot;,
+                &quot;label&quot;: &quot;1&quot;,
+                &quot;active&quot;: true
+            },
+            {
+                &quot;url&quot;: &quot;http://localhost/api/v1/stations?page=2&quot;,
+                &quot;label&quot;: &quot;2&quot;,
+                &quot;active&quot;: false
+            },
+            {
+                &quot;url&quot;: &quot;http://localhost/api/v1/stations?page=3&quot;,
+                &quot;label&quot;: &quot;3&quot;,
+                &quot;active&quot;: false
+            },
+            {
+                &quot;url&quot;: &quot;http://localhost/api/v1/stations?page=4&quot;,
+                &quot;label&quot;: &quot;4&quot;,
+                &quot;active&quot;: false
+            },
+            {
+                &quot;url&quot;: &quot;http://localhost/api/v1/stations?page=5&quot;,
+                &quot;label&quot;: &quot;5&quot;,
+                &quot;active&quot;: false
+            },
+            {
+                &quot;url&quot;: &quot;http://localhost/api/v1/stations?page=6&quot;,
+                &quot;label&quot;: &quot;6&quot;,
+                &quot;active&quot;: false
+            },
+            {
+                &quot;url&quot;: &quot;http://localhost/api/v1/stations?page=7&quot;,
+                &quot;label&quot;: &quot;7&quot;,
+                &quot;active&quot;: false
+            },
+            {
+                &quot;url&quot;: &quot;http://localhost/api/v1/stations?page=8&quot;,
+                &quot;label&quot;: &quot;8&quot;,
+                &quot;active&quot;: false
+            },
+            {
+                &quot;url&quot;: &quot;http://localhost/api/v1/stations?page=9&quot;,
+                &quot;label&quot;: &quot;9&quot;,
+                &quot;active&quot;: false
+            },
+            {
+                &quot;url&quot;: &quot;http://localhost/api/v1/stations?page=10&quot;,
+                &quot;label&quot;: &quot;10&quot;,
+                &quot;active&quot;: false
+            },
+            {
+                &quot;url&quot;: null,
+                &quot;label&quot;: &quot;...&quot;,
+                &quot;active&quot;: false
+            },
+            {
+                &quot;url&quot;: &quot;http://localhost/api/v1/stations?page=500&quot;,
+                &quot;label&quot;: &quot;500&quot;,
+                &quot;active&quot;: false
+            },
+            {
+                &quot;url&quot;: &quot;http://localhost/api/v1/stations?page=501&quot;,
+                &quot;label&quot;: &quot;501&quot;,
+                &quot;active&quot;: false
+            },
+            {
+                &quot;url&quot;: &quot;http://localhost/api/v1/stations?page=2&quot;,
+                &quot;label&quot;: &quot;Next &amp;raquo;&quot;,
+                &quot;active&quot;: false
+            }
+        ],
+        &quot;path&quot;: &quot;http://localhost/api/v1/stations&quot;,
+        &quot;per_page&quot;: 100,
+        &quot;to&quot;: 100,
+        &quot;total&quot;: 50001
+    }
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-v1-stations" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-v1-stations"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-v1-stations"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-v1-stations" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-v1-stations">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-v1-stations" data-method="GET"
+      data-path="api/v1/stations"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-v1-stations', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-v1-stations"
+                    onclick="tryItOut('GETapi-v1-stations');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-v1-stations"
+                    onclick="cancelTryOut('GETapi-v1-stations');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-v1-stations"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/v1/stations</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-v1-stations"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-v1-stations"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        </form>
+
+                    <h2 id="stations-POSTapi-v1-stations">POST api/v1/stations</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-POSTapi-v1-stations">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://localhost/api/v1/stations" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"name\": \"temporibus\",
+    \"latitude\": -89,
+    \"longitude\": -179,
+    \"company_id\": 15,
+    \"address\": \"maxime\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/v1/stations"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "name": "temporibus",
+    "latitude": -89,
+    "longitude": -179,
+    "company_id": 15,
+    "address": "maxime"
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-v1-stations">
+</span>
+<span id="execution-results-POSTapi-v1-stations" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-v1-stations"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-v1-stations"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-v1-stations" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-v1-stations">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-v1-stations" data-method="POST"
+      data-path="api/v1/stations"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-v1-stations', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-v1-stations"
+                    onclick="tryItOut('POSTapi-v1-stations');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-v1-stations"
+                    onclick="cancelTryOut('POSTapi-v1-stations');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-v1-stations"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/v1/stations</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-v1-stations"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-v1-stations"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>name</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="name"                data-endpoint="POSTapi-v1-stations"
+               value="temporibus"
+               data-component="body">
+    <br>
+<p>Example: <code>temporibus</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>latitude</code></b>&nbsp;&nbsp;
+<small>number</small>&nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="latitude"                data-endpoint="POSTapi-v1-stations"
+               value="-89"
+               data-component="body">
+    <br>
+<p>Must be between -90 and 90. Example: <code>-89</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>longitude</code></b>&nbsp;&nbsp;
+<small>number</small>&nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="longitude"                data-endpoint="POSTapi-v1-stations"
+               value="-179"
+               data-component="body">
+    <br>
+<p>Must be between -180 and 180. Example: <code>-179</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>company_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="company_id"                data-endpoint="POSTapi-v1-stations"
+               value="15"
+               data-component="body">
+    <br>
+<p>Example: <code>15</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>address</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="address"                data-endpoint="POSTapi-v1-stations"
+               value="maxime"
+               data-component="body">
+    <br>
+<p>Example: <code>maxime</code></p>
+        </div>
+        </form>
+
+                    <h2 id="stations-GETapi-v1-stations--station-">GET api/v1/stations/{station}</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-GETapi-v1-stations--station-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://localhost/api/v1/stations/14" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/v1/stations/14"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-v1-stations--station-">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary style="cursor: pointer;">
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+x-ratelimit-limit: 60
+x-ratelimit-remaining: 58
+access-control-allow-origin: *
+ </code></pre></details>         <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;data&quot;: {
+        &quot;id&quot;: 14,
+        &quot;name&quot;: &quot;Ms. Sonia Schumm DVM&quot;,
+        &quot;latitude&quot;: &quot;62.09622700&quot;,
+        &quot;longitude&quot;: &quot;101.88921300&quot;,
+        &quot;address&quot;: &quot;10134 Windler Roads\nRueckerstad, PA 79540&quot;,
+        &quot;company&quot;: {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;Brekke, Kuvalis and Baumbach&quot;,
+            &quot;parent&quot;: null
+        }
+    }
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-v1-stations--station-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-v1-stations--station-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-v1-stations--station-"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-v1-stations--station-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-v1-stations--station-">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-v1-stations--station-" data-method="GET"
+      data-path="api/v1/stations/{station}"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-v1-stations--station-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-v1-stations--station-"
+                    onclick="tryItOut('GETapi-v1-stations--station-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-v1-stations--station-"
+                    onclick="cancelTryOut('GETapi-v1-stations--station-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-v1-stations--station-"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/v1/stations/{station}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-v1-stations--station-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-v1-stations--station-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>station</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="station"                data-endpoint="GETapi-v1-stations--station-"
+               value="14"
+               data-component="url">
+    <br>
+<p>The ID of the station. Example: <code>14</code></p>
+            </div>
+                    </form>
+
+                    <h2 id="stations-PUTapi-v1-stations--station-">PUT api/v1/stations/{station}</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-PUTapi-v1-stations--station-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request PUT \
+    "http://localhost/api/v1/stations/16" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"name\": \"et\",
+    \"latitude\": -90,
+    \"longitude\": -179,
+    \"company_id\": 1,
+    \"address\": \"incidunt\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/v1/stations/16"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "name": "et",
+    "latitude": -90,
+    "longitude": -179,
+    "company_id": 1,
+    "address": "incidunt"
+};
+
+fetch(url, {
+    method: "PUT",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-PUTapi-v1-stations--station-">
+</span>
+<span id="execution-results-PUTapi-v1-stations--station-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-PUTapi-v1-stations--station-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-PUTapi-v1-stations--station-"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-PUTapi-v1-stations--station-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-PUTapi-v1-stations--station-">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-PUTapi-v1-stations--station-" data-method="PUT"
+      data-path="api/v1/stations/{station}"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('PUTapi-v1-stations--station-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-PUTapi-v1-stations--station-"
+                    onclick="tryItOut('PUTapi-v1-stations--station-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-PUTapi-v1-stations--station-"
+                    onclick="cancelTryOut('PUTapi-v1-stations--station-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-PUTapi-v1-stations--station-"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-darkblue">PUT</small>
+            <b><code>api/v1/stations/{station}</code></b>
+        </p>
+            <p>
+            <small class="badge badge-purple">PATCH</small>
+            <b><code>api/v1/stations/{station}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="PUTapi-v1-stations--station-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="PUTapi-v1-stations--station-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>station</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="station"                data-endpoint="PUTapi-v1-stations--station-"
+               value="16"
+               data-component="url">
+    <br>
+<p>The ID of the station. Example: <code>16</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>name</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="name"                data-endpoint="PUTapi-v1-stations--station-"
+               value="et"
+               data-component="body">
+    <br>
+<p>Example: <code>et</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>latitude</code></b>&nbsp;&nbsp;
+<small>number</small>&nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="latitude"                data-endpoint="PUTapi-v1-stations--station-"
+               value="-90"
+               data-component="body">
+    <br>
+<p>Must be between -90 and 90. Example: <code>-90</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>longitude</code></b>&nbsp;&nbsp;
+<small>number</small>&nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="longitude"                data-endpoint="PUTapi-v1-stations--station-"
+               value="-179"
+               data-component="body">
+    <br>
+<p>Must be between -180 and 180. Example: <code>-179</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>company_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="company_id"                data-endpoint="PUTapi-v1-stations--station-"
+               value="1"
+               data-component="body">
+    <br>
+<p>Example: <code>1</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>address</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="address"                data-endpoint="PUTapi-v1-stations--station-"
+               value="incidunt"
+               data-component="body">
+    <br>
+<p>Example: <code>incidunt</code></p>
+        </div>
+        </form>
+
+                    <h2 id="stations-DELETEapi-v1-stations--station-">DELETE api/v1/stations/{station}</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-DELETEapi-v1-stations--station-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request DELETE \
+    "http://localhost/api/v1/stations/5" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/v1/stations/5"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "DELETE",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-DELETEapi-v1-stations--station-">
+</span>
+<span id="execution-results-DELETEapi-v1-stations--station-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-DELETEapi-v1-stations--station-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-DELETEapi-v1-stations--station-"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-DELETEapi-v1-stations--station-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-DELETEapi-v1-stations--station-">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-DELETEapi-v1-stations--station-" data-method="DELETE"
+      data-path="api/v1/stations/{station}"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('DELETEapi-v1-stations--station-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-DELETEapi-v1-stations--station-"
+                    onclick="tryItOut('DELETEapi-v1-stations--station-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-DELETEapi-v1-stations--station-"
+                    onclick="cancelTryOut('DELETEapi-v1-stations--station-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-DELETEapi-v1-stations--station-"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-red">DELETE</small>
+            <b><code>api/v1/stations/{station}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="DELETEapi-v1-stations--station-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="DELETEapi-v1-stations--station-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>station</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="station"                data-endpoint="DELETEapi-v1-stations--station-"
+               value="5"
+               data-component="url">
+    <br>
+<p>The ID of the station. Example: <code>5</code></p>
+            </div>
+                    </form>
+
+            
+
+        
+    </div>
+    <div class="dark-box">
+                    <div class="lang-selector">
+                                                        <button type="button" class="lang-button" data-language-name="bash">bash</button>
+                                                        <button type="button" class="lang-button" data-language-name="javascript">javascript</button>
+                            </div>
+            </div>
+</div>
+</body>
+</html>
