@@ -17,9 +17,9 @@ final class StationUpdateRequest extends AbstractFormRequest
             'name' => 'required|string',
             'latitude' => 'required|numeric|between:-90,90',
             'longitude' => 'required|numeric|between:-180,180',
-            'company_id' => 'required|int|exists:'.Company::class.',id',
+            'company_id' => 'required|int|exists:' . Company::class . ',id',
             'address' => 'required|string',
-            'station' => 'required|int|exists:'.Station::class.',id'
+            'station' => 'required|int|exists:' . Station::class . ',id'
         ];
     }
 
@@ -34,5 +34,4 @@ final class StationUpdateRequest extends AbstractFormRequest
             address: $this->input('address')
         );
     }
-
 }

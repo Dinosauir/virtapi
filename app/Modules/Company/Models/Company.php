@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property-read int $id
- * @property int $parent_company_id
+ * @property null|int $parent_company_id
  * @property string $name
  * @property null|Company $parent
  * @property Company[] $children
@@ -38,7 +38,7 @@ class Company extends Model
 
     public static function createFromData(CompanyStoreData $data): self
     {
-        $company = new self;
+        $company = new self();
 
         $company->name = $data->name;
         $company->parent_company_id = $data->parent_company_id;
@@ -77,7 +77,7 @@ class Company extends Model
 
     final public static function getCacheKey(int $id): string
     {
-        return 'company:'.$id;
+        return 'company:' . $id;
     }
 
     final public static function getCollectionCacheKey(): string

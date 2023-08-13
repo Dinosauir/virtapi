@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace App\Modules\Station\ValueObjects;
 
 use App\Modules\Shared\ValueObjects\AbstractValueObject;
@@ -16,15 +15,8 @@ class LongitudeValueObject extends AbstractValueObject
     /**
      * @throws ValidationException
      */
-    public function __construct(mixed $number)
+    public function __construct(int|float|string $number)
     {
-        if (isset($this->longitude)) {
-            throw new \InvalidArgumentException(
-                static::IMMUTABLE_MESSAGE,
-                Response::HTTP_UNPROCESSABLE_ENTITY
-            );
-        }
-
         $this->longitude = (float)$number;
 
         $this->validate();

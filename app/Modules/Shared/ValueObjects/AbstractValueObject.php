@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace App\Modules\Shared\ValueObjects;
 
 use App\Modules\Shared\Contracts\Immutable;
@@ -10,10 +9,10 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Traits\Conditionable;
 use Illuminate\Support\Traits\Macroable;
 
-
 abstract class AbstractValueObject implements Arrayable, Immutable
 {
-    use Macroable, Conditionable;
+    use Macroable;
+    use Conditionable;
 
     abstract public function value(): mixed;
 

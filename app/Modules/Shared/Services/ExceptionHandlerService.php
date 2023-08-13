@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace App\Modules\Shared\Services;
 
 use App\Modules\Shared\Strategies\AbstractException;
@@ -35,9 +34,9 @@ class ExceptionHandlerService
 
     private function resolveStrategy(int $statusCode): AbstractException
     {
-        $class = $this->buildNamespace().'\\'.$this->buildName($statusCode);
+        $class = $this->buildNamespace() . '\\' . $this->buildName($statusCode);
 
-        return class_exists($class) ? new $class : new ExceptionDefault();
+        return class_exists($class) ? new $class() : new ExceptionDefault();
     }
 
     private function buildNamespace(): string
@@ -47,6 +46,6 @@ class ExceptionHandlerService
 
     private function buildName(int $statusCode): string
     {
-        return 'Exception'.$statusCode;
+        return 'Exception' . $statusCode;
     }
 }

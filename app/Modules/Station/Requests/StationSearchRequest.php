@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace App\Modules\Station\Requests;
 
 use App\Modules\Company\Models\Company;
@@ -18,7 +17,7 @@ final class StationSearchRequest extends AbstractFormRequest
         return [
             'latitude' => 'required|numeric|between:-90,90',
             'longitude' => 'required|numeric|between:-180,180',
-            'company_id' => 'required|int|exists:'.Company::class.',id',
+            'company_id' => 'required|int|exists:' . Company::class . ',id',
             'radius' => 'required|int',
             'page' => 'nullable|int'
         ];

@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace App\Modules\Company\Services;
 
 use App\Modules\Company\Contracts\CompanyRepositoryInterface;
@@ -20,7 +19,7 @@ abstract class AbstractCompanyUpdater
         $this->validate($data);
 
         $company = $this->companyRepository->getCompany($data->id);
-        
+
         $model = $this->updateModel($company, $data);
 
         $model->save();

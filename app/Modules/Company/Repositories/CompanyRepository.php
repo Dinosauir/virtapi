@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace App\Modules\Company\Repositories;
 
 use App\Modules\Company\Contracts\CompanyRepositoryInterface;
@@ -35,13 +34,13 @@ final class CompanyRepository implements CompanyRepositoryInterface
     {
         $taggedCache = $this->getCacheTags();
 
-        if ($taggedCache->has(Company::getCollectionCacheKey().':'.$page)) {
-            return $taggedCache->get(Company::getCollectionCacheKey().':'.$page);
+        if ($taggedCache->has(Company::getCollectionCacheKey() . ':' . $page)) {
+            return $taggedCache->get(Company::getCollectionCacheKey() . ':' . $page);
         }
 
         $companies = Company::query()->paginate(100);
 
-        $taggedCache->forever(Company::getCollectionCacheKey().':'.$page, $companies);
+        $taggedCache->forever(Company::getCollectionCacheKey() . ':' . $page, $companies);
 
         return $companies;
     }

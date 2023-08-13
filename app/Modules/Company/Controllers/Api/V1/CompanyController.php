@@ -21,7 +21,8 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class CompanyController extends Controller
 {
-    use AuthorizesRequests, ValidatesRequests;
+    use AuthorizesRequests;
+    use ValidatesRequests;
 
     public function __construct(
         private readonly AbstractCompanyCreator $companyCreator,

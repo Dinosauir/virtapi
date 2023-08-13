@@ -12,7 +12,7 @@ final class CompanyUpdateRequest extends AbstractFormRequest
     {
         return [
             'name' => 'required|string',
-            'parent_company_id' => 'nullable|int|exists:'.Company::class.',id',
+            'parent_company_id' => 'nullable|int|exists:' . Company::class . ',id',
         ];
     }
 

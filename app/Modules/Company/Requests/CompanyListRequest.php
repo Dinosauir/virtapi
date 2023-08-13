@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace App\Modules\Company\Requests;
 
 use App\Modules\Company\Data\CompanyListData;

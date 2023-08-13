@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace App\Modules\Station\Repositories;
 
 use App\Modules\Station\Contracts\StationRepositoryInterface;
@@ -30,17 +29,22 @@ final class StationRepository implements StationRepositoryInterface
         return $station;
     }
 
+    private function getCacheTags(): TaggedCache
+    {
+        return Cache::tags([Station::getCollectionCacheKey()]);
+    }
+
     public function getAllStations(int $page): LengthAwarePaginator
     {
         $taggedCache = $this->getCacheTags();
 
-        if ($taggedCache->has(Station::getCollectionCacheKey().':'.$page)) {
-            return $taggedCache->get(Station::getCollectionCacheKey().':'.$page);
+        if ($taggedCache->has(Station::getCollectionCacheKey() . ':' . $page)) {
+            return $taggedCache->get(Station::getCollectionCacheKey() . ':' . $page);
         }
 
         $stations = Station::query()->with(['company'])->paginate(100);
 
-        $taggedCache->forever(Station::getCollectionCacheKey().':'.$page, $stations);
+        $taggedCache->forever(Station::getCollectionCacheKey() . ':' . $page, $stations);
 
         return $stations;
     }
@@ -86,12 +90,18 @@ final class StationRepository implements StationRepositoryInterface
         return $stations;
     }
 
+    public static function getSearchCacheKey(StationSearchData $data): string
+    {
+        return $data->latitude . ':' . $data->longitude . ':' . $data->radius . ':' .
+            $data->page . ':' . $data->company_id;
+    }
+
     private function getGroupedPaginator(LengthAwarePaginator $stations): LengthAwarePaginator
     {
         $groupedStations = [];
 
         foreach ($stations as $station) {
-            $key = $station->latitude.':'.$station->longitude;
+            $key = $station->latitude . ':' . $station->longitude;
             if (!isset($groupedStations[$key])) {
                 $groupedStations[$key] = [];
             }
@@ -106,15 +116,5 @@ final class StationRepository implements StationRepositoryInterface
             $stations->currentPage(),
             ['path' => $stations->path(), 'pageName' => 'page']
         );
-    }
-
-    private function getCacheTags(): TaggedCache
-    {
-        return Cache::tags([Station::getCollectionCacheKey()]);
-    }
-
-    public static function getSearchCacheKey(StationSearchData $data): string
-    {
-        return $data->latitude.':'.$data->longitude.':'.$data->radius.':'.$data->page.':'.$data->company_id;
     }
 }

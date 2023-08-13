@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace App\Modules\Station\Contracts;
 
 use App\Modules\Station\Data\StationListData;

@@ -120,6 +120,6 @@ final class StationServiceProvider extends ServiceProvider
 
     private function getRoutePath(string $filename = 'api.php'): string
     {
-        return $this->getRouteBasePath().'/'.$filename;
+        return $this->getRouteBasePath() . '/' . $filename;
     }
 }

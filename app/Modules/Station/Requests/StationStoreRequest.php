@@ -16,7 +16,7 @@ final class StationStoreRequest extends AbstractFormRequest
             'name' => 'required|string',
             'latitude' => 'required|numeric|between:-90,90',
             'longitude' => 'required|numeric|between:-180,180',
-            'company_id' => 'required|int|exists:'.Company::class.',id',
+            'company_id' => 'required|int|exists:' . Company::class . ',id',
             'address' => 'required|string'
         ];
     }

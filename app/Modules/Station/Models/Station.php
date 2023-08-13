@@ -33,7 +33,7 @@ class Station extends Model
 
     public static function createFromData(StationStoreData $data): self
     {
-        $station = new self;
+        $station = new self();
 
         $station->name = $data->name;
         $station->address = $data->address;
@@ -59,7 +59,7 @@ class Station extends Model
 
     public static function getCacheKey(int $id): string
     {
-        return 'station:'.$id;
+        return 'station:' . $id;
     }
 
     public static function getCollectionCacheKey(): string

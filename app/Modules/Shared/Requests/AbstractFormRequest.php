@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace App\Modules\Shared\Requests;
 
 use App\Modules\Shared\Concerns\HasRouteParamValidationTrait;

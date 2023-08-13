@@ -22,7 +22,8 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class StationController extends Controller
 {
-    use AuthorizesRequests, ValidatesRequests;
+    use AuthorizesRequests;
+    use ValidatesRequests;
 
     public function __construct(
         private readonly AbstractStationCreator $stationCreator,
