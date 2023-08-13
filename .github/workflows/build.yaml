@@ -46,52 +46,54 @@ jobs:
           DB_PORT: ${{ job.services.mysql.ports['3306'] }}
           REDIS_HOST: localhost
           REDIS_PORT: ${{ job.services.redis.ports['6379'] }}
-#  tests:
-#    name: Tests
-#    runs-on: ubuntu-latest
-#    needs: project_build
-#    services:
-#      mysql:
-#        image: mariadb:10
-#        env:
-#          MYSQL_ROOT_PASSWORD: 'password'
-#          MYSQL_DATABASE: 'testing'
-#          MYSQL_USER: 'sail'
-#          MYSQL_PASSWORD: 'password'
-#        ports:
-#          - 3306/tcp
-#        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
-#      redis:
-#        image: redis
-#        ports:
-#          - 6379/tcp
-#        options: --health-cmd="redis-cli ping" --health-interval=10s --health-timeout=5s --health-retries=3
-#    strategy:
-#      fail-fast: true
-#      matrix:
-#        php-versions: [ '8.2' ]
-#    steps:
-#      - name: Syncing repo
-#        uses: actions/checkout@v2
-#      - name: Setup PHP with extensions
-#        uses: shivammathur/setup-php@v2 #https://github.com/shivammathur/setup-php
-#        with:
-#          php-version: ${{ matrix.php-versions }}
-#          extensions: mbstring, dom, fileinfo, mysql
-#          coverage: xdebug #optional
-#      - name: Setup Project
-#        run: |
-#          sudo /etc/init.d/mysql start
-#          composer install --no-progress --prefer-dist --optimize-autoloader
-#          cp .env.ci.dist .env
-#          cp .env.ci.testing.dist .env.testing
-#          php artisan migrate --seed --force
-#          chmod -R 777 storage bootstrap/cache
-#        env:
-#          DB_PORT: ${{ job.services.mysql.ports['3306'] }}
-#          REDIS_PORT: ${{ job.services.redis.ports['6379'] }}
-#      - name: Execute tests (Unit and Feature tests) via PHPUnit
-#        run: vendor/bin/phpunit --testdox -v --stop-on-defect
-#        env:
-#          DB_PORT: ${{ job.services.mysql.ports['3306'] }}
-#          REDIS_PORT: ${{ job.services.redis.ports['6379'] }}
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+    needs: project_build
+    services:
+      mysql:
+        image: mariadb:10
+        env:
+          MYSQL_ROOT_PASSWORD: 'password'
+          MYSQL_DATABASE: 'testing'
+          MYSQL_USER: 'sail'
+          MYSQL_PASSWORD: 'password'
+        ports:
+          - 3306/tcp
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+      redis:
+        image: redis
+        ports:
+          - 6379/tcp
+        options: --health-cmd="redis-cli ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    strategy:
+      fail-fast: true
+      matrix:
+        php-versions: [ '8.2' ]
+    steps:
+      - name: Syncing repo
+        uses: actions/checkout@v2
+      - name: Setup PHP with extensions
+        uses: shivammathur/setup-php@v2 #https://github.com/shivammathur/setup-php
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: mbstring, dom, fileinfo, mysql
+          coverage: xdebug #optional
+      - name: Setup Project
+        run: |
+          sudo /etc/init.d/mysql start
+          composer install --no-progress --prefer-dist --optimize-autoloader
+          cp .env.ci.dist .env
+          cp .env.ci.testing.dist .env.testing
+          php artisan migrate --seed --force
+          chmod -R 777 storage bootstrap/cache
+        env:
+          DB_PORT: ${{ job.services.mysql.ports['3306'] }}
+          REDIS_HOST: localhost
+          REDIS_PORT: ${{ job.services.redis.ports['6379'] }}
+      - name: Execute tests (Unit and Feature tests) via PHPUnit
+        run: vendor/bin/phpunit --testdox -v --stop-on-defect
+        env:
+          DB_PORT: ${{ job.services.mysql.ports['3306'] }}
+          REDIS_HOST: localhost
+          REDIS_PORT: ${{ job.services.redis.ports['6379'] }}
