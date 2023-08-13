@@ -20,6 +20,7 @@ abstract class TestCase extends BaseTestCase
         parent::setUp();
 
         $this->faker = Factory::create();
+        $this->withoutExceptionHandling();
         Artisan::call('migrate:refresh');
     }
 

@@ -54,6 +54,7 @@ jobs:
       mysql:
         image: mariadb:10
         env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
           MYSQL_ROOT_PASSWORD: 'password'
           MYSQL_DATABASE: 'virtapi'
           MYSQL_USER: 'sail'
