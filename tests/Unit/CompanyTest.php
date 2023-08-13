@@ -5,9 +5,11 @@ namespace Tests\Unit;
 use App\Modules\Company\Contracts\CompanyRepositoryInterface;
 use App\Modules\Company\Data\CompanyStoreData;
 use App\Modules\Company\Data\CompanyUpdateData;
+use App\Modules\Company\Models\Company;
 use App\Modules\Company\Services\AbstractCompanyCreator;
 use App\Modules\Company\Services\AbstractCompanyDestroyer;
 use App\Modules\Company\Services\AbstractCompanyUpdater;
+use Illuminate\Support\Facades\Cache;
 use Tests\TestCase;
 
 final class CompanyTest extends TestCase
@@ -34,32 +36,18 @@ final class CompanyTest extends TestCase
     {
         $name = $this->faker->company;
 
-        $company = $this->companyCreator->create(
-            new CompanyStoreData(
-                name: $name,
-                parent_company_id: null
-            )
-        );
+        $data = $this->createCompanyData($name);
 
-        $this->assertEquals(1, $company->id);
-        $this->assertEquals($name, $company->name);
+        $this->createCompany($name, $data);
     }
-
 
     public function test_create_company_with_parent(): void
     {
         $name = $this->faker->company;
 
-        $company = $this->companyCreator->create(
-            new CompanyStoreData(
-                name: $name,
-                parent_company_id: null
-            )
-        );
+        $data = $this->createCompanyData($name);
 
-        $this->assertEquals(1, $company->id);
-        $this->assertEquals($name, $company->name);
-
+        $company = $this->createCompany($name, $data);
 
         $company = $this->companyCreator->create(
             new CompanyStoreData(
@@ -76,27 +64,23 @@ final class CompanyTest extends TestCase
     {
         $name = $this->faker->company;
 
-        $company = $this->companyCreator->create(
-            new CompanyStoreData(
-                name: $name,
-                parent_company_id: null
-            )
-        );
-
-        $this->assertEquals(1, $company->id);
-        $this->assertEquals($name, $company->name);
-
+        $data = $this->createCompanyData($name);
+        $company = $this->createCompany($name, $data);
 
         $newName = $this->faker->company;
 
-        $company = $this->companyUpdater->update(
-            $company,
-            new CompanyUpdateData(
-                id: $company->id,
-                name: $newName,
-                parent_company_id: null
-            )
+        $data = new CompanyUpdateData(
+            id: $company->id,
+            name: $newName,
+            parent_company_id: null
         );
+
+        $this->assertEquals($newName, $data->name);
+        $this->assertEquals(1, $data->id);
+        $this->assertEquals(null, $data->parent_company_id);
+        $this->assertEquals(['id' => $company->id, 'name' => $newName, 'parent_company_id' => null], $data->toArray());
+
+        $company = $this->companyUpdater->update($company, $data);
 
         $this->assertEquals(1, $company->id);
         $this->assertEquals(null, $company->parent_company_id);
@@ -107,12 +91,8 @@ final class CompanyTest extends TestCase
     {
         $name = $this->faker->company;
 
-        $company = $this->companyCreator->create(
-            new CompanyStoreData(
-                name: $name,
-                parent_company_id: null
-            )
-        );
+        $data = $this->createCompanyData($name);
+        $company = $this->createCompany($name, $data);
 
         $response = $this->companyDestroyer->destroy($company);
 
@@ -122,18 +102,13 @@ final class CompanyTest extends TestCase
     public function test_remove_company_with_parent(): void
     {
         $name = $this->faker->company;
-
-        $company = $this->companyCreator->create(
-            new CompanyStoreData(
-                name: $name,
-                parent_company_id: null
-            )
-        );
+        $data = $this->createCompanyData($name);
+        $company = $this->createCompany($name, $data);
 
         $company2 = $this->companyCreator->create(
             new CompanyStoreData(
                 name: $this->faker->company,
-                parent_company_id: 1
+                parent_company_id: $company->id
             )
         );
 
@@ -148,14 +123,10 @@ final class CompanyTest extends TestCase
     public function test_get_company(): void
     {
         $name = $this->faker->company;
+        $data = $this->createCompanyData($name);
+        $company = $this->createCompany($name, $data);
 
-        $company = $this->companyCreator->create(
-            new CompanyStoreData(
-                name: $name,
-                parent_company_id: null
-            )
-        );
-
+        Cache::tags(Company::getCollectionCacheKey())->flush();
         $company = $this->companyRepository->getCompany($company->id);
 
         $this->assertEquals(1, $company->id);
@@ -165,16 +136,34 @@ final class CompanyTest extends TestCase
     public function test_get_companies(): void
     {
         $name = $this->faker->company;
-
-        $company = $this->companyCreator->create(
-            new CompanyStoreData(
-                name: $name,
-                parent_company_id: null
-            )
-        );
+        $data = $this->createCompanyData($name);
+        $company = $this->createCompany($name, $data);
 
         $paginator = $this->companyRepository->getAllCompanies();
 
         $this->assertCount(1, $paginator);
+    }
+
+    private function createCompanyData(string $name): CompanyStoreData
+    {
+        $data = new CompanyStoreData(
+            name: $name,
+            parent_company_id: null
+        );
+
+        $this->assertEquals($name, $data->name);
+        $this->assertEquals(null, $data->parent_company_id);
+        $this->assertEquals(['name' => $name, 'parent_company_id' => null], $data->toArray());
+        return $data;
+    }
+
+    private function createCompany(string $name, CompanyStoreData $data): Company
+    {
+        $company = $this->companyCreator->create($data);
+
+        $this->assertEquals(1, $company->id);
+        $this->assertEquals($name, $company->name);
+
+        return $company;
     }
 }

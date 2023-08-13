@@ -11,11 +11,13 @@ use App\Modules\Station\Contracts\StationSearcherInterface;
 use App\Modules\Station\Data\StationSearchData;
 use App\Modules\Station\Data\StationStoreData;
 use App\Modules\Station\Data\StationUpdateData;
+use App\Modules\Station\Models\Station;
 use App\Modules\Station\Services\AbstractStationCreator;
 use App\Modules\Station\Services\AbstractStationDestroyer;
 use App\Modules\Station\Services\AbstractStationUpdater;
 use App\Modules\Station\ValueObjects\LatitudeValueObject;
 use App\Modules\Station\ValueObjects\LongitudeValueObject;
+use Illuminate\Support\Facades\Cache;
 use Tests\TestCase;
 
 final class StationTest extends TestCase
@@ -35,7 +37,6 @@ final class StationTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-
         $this->stationRepository = $this->app->make(StationRepositoryInterface::class);
         $this->stationDestroyer = $this->app->make(AbstractStationDestroyer::class);
         $this->stationCreator = $this->app->make(AbstractStationCreator::class);
@@ -49,13 +50,7 @@ final class StationTest extends TestCase
         $company = $this->createCompany();
         $this->assertEquals(1, $company->id);
 
-        $data = new StationStoreData(
-            name: $this->faker->name,
-            latitude: LatitudeValueObject::make($this->faker->latitude),
-            longitude: LongitudeValueObject::make($this->faker->longitude),
-            company_id: $company->id,
-            address: $this->faker->address
-        );
+        $data = $this->createStoreData($company->id);
 
         $station = $this->stationCreator->create($data);
 
@@ -70,13 +65,7 @@ final class StationTest extends TestCase
         $company = $this->createCompany();
         $this->assertEquals(1, $company->id);
 
-        $data = new StationStoreData(
-            name: $this->faker->name,
-            latitude: LatitudeValueObject::make($this->faker->latitude),
-            longitude: LongitudeValueObject::make($this->faker->longitude),
-            company_id: $company->id,
-            address: $this->faker->address
-        );
+        $data = $this->createStoreData($company->id);
 
         $station = $this->stationCreator->create($data);
 
@@ -85,14 +74,7 @@ final class StationTest extends TestCase
         $this->assertEquals($data->longitude->value(), $station->longitude);
         $this->assertEquals(1, $station->id);
 
-        $data = new StationUpdateData(
-            id: $station->id,
-            name: $this->faker->name,
-            latitude: LatitudeValueObject::make($this->faker->latitude),
-            longitude: LongitudeValueObject::make($this->faker->longitude),
-            company_id: $station->company_id,
-            address: $this->faker->address
-        );
+        $data = $this->createUpdateData($station);
 
         $station = $this->stationUpdater->update($station, $data);
 
@@ -143,6 +125,7 @@ final class StationTest extends TestCase
 
         $station = $this->stationCreator->create($data);
 
+        Cache::tags(Station::getCollectionCacheKey())->flush();
         $station = $this->stationRepository->getStation($station->id);
 
         $this->assertEquals($data->name, $station->name);
@@ -237,5 +220,61 @@ final class StationTest extends TestCase
                 parent_company_id: null
             )
         );
+    }
+
+    private function createStoreData(int $company_id): StationStoreData
+    {
+        $name = $this->faker->name;
+        $latitude = $this->faker->latitude;
+        $longitude = $this->faker->longitude;
+        $address = $this->faker->address;
+
+        $data = new StationStoreData(
+            name: $name,
+            latitude: LatitudeValueObject::make($latitude),
+            longitude: LongitudeValueObject::make($longitude),
+            company_id: $company_id,
+            address: $address
+        );
+
+        $this->assertEquals($address, $data->address);
+        $this->assertEquals($latitude, $data->latitude->value());
+        $this->assertEquals($longitude, $data->longitude->value());
+        $this->assertEquals($name, $data->name);
+        $this->assertEquals($company_id, $data->company_id);
+        $this->assertEquals(compact('name', 'latitude', 'longitude', 'address', 'company_id'), $data->toArray());
+
+        return $data;
+    }
+
+    private function createUpdateData(Station $station): StationUpdateData
+    {
+        $name = $this->faker->name;
+        $latitude = $this->faker->latitude;
+        $longitude = $this->faker->longitude;
+        $address = $this->faker->address;
+        $company_id = $station->company_id;
+        $id = $station->id;
+        $data = new StationUpdateData(
+            id: $id,
+            name: $name,
+            latitude: LatitudeValueObject::make($latitude),
+            longitude: LongitudeValueObject::make($longitude),
+            company_id: $company_id,
+            address: $address
+        );
+
+        $this->assertEquals($address, $data->address);
+        $this->assertEquals($latitude, $data->latitude->value());
+        $this->assertEquals($longitude, $data->longitude->value());
+        $this->assertEquals($name, $data->name);
+        $this->assertEquals($station->company_id, $data->company_id);
+
+        $this->assertEquals(
+            compact('name', 'latitude', 'longitude', 'address', 'company_id', 'id'),
+            $data->toArray()
+        );
+
+        return $data;
     }
 }

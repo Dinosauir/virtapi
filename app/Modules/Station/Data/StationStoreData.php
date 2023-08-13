@@ -25,8 +25,8 @@ final class StationStoreData extends AbstractData
     {
         return [
             'name' => $this->name,
-            'latitude' => $this->latitude,
-            'longitude' => $this->longitude,
+            'latitude' => $this->latitude->value(),
+            'longitude' => $this->longitude->value(),
             'company_id' => $this->company_id,
             'address' => $this->address
         ];

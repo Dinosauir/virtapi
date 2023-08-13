@@ -11,13 +11,14 @@ use Illuminate\Validation\ValidationException;
 
 final class CompanyUpdater extends AbstractCompanyUpdater
 {
+    public const VALIDATION_MESSAGE = 'Parent company cannot be itself';
     /**
      * @throws ValidationException
      */
     protected function validate(CompanyUpdateData $data): void
     {
         if ($data->parent_company_id === $data->id) {
-            throw ValidationException::withMessages(['parent_company_id' => 'Parent company cannot be itself']);
+            throw ValidationException::withMessages(['parent_company_id' => self::VALIDATION_MESSAGE]);
         }
 
         return;
