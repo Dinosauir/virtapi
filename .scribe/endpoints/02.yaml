@@ -27,7 +27,7 @@ endpoints:
     responses:
       -
         status: 200
-        content: '{"data":[{"id":1,"name":"Brekke, Kuvalis and Baumbach","parent":null}],"links":{"first":"http:\/\/localhost\/api\/v1\/companies?page=1","last":"http:\/\/localhost\/api\/v1\/companies?page=1","prev":null,"next":null},"meta":{"current_page":1,"from":1,"last_page":1,"links":[{"url":null,"label":"&laquo; Previous","active":false},{"url":"http:\/\/localhost\/api\/v1\/companies?page=1","label":"1","active":true},{"url":null,"label":"Next &raquo;","active":false}],"path":"http:\/\/localhost\/api\/v1\/companies","per_page":100,"to":1,"total":1}}'
+        content: '{"data":[{"id":1,"name":"Company 1","descendents":[2,3,1],"parent":null},{"id":2,"name":"Company 2","descendents":[3,2],"parent":{"id":1,"name":"Company 1","descendents":[2,3,1],"parent":null}},{"id":3,"name":"Company 3","parent":{"id":2,"name":"Company 2","descendents":[3,2],"parent":{"id":1,"name":"Company 1","descendents":[2,3,1],"parent":null}}}],"links":{"first":"http:\/\/localhost\/api\/v1\/companies?page=1","last":"http:\/\/localhost\/api\/v1\/companies?page=1","prev":null,"next":null},"meta":{"current_page":1,"from":1,"last_page":1,"links":[{"url":null,"label":"&laquo; Previous","active":false},{"url":"http:\/\/localhost\/api\/v1\/companies?page=1","label":"1","active":true},{"url":null,"label":"Next &raquo;","active":false}],"path":"http:\/\/localhost\/api\/v1\/companies","per_page":100,"to":3,"total":3}}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
@@ -67,19 +67,19 @@ endpoints:
         name: name
         description: ''
         required: true
-        example: saepe
+        example: unde
         type: string
         custom: []
       parent_company_id:
         name: parent_company_id
         description: ''
         required: false
-        example: 14
+        example: 6
         type: integer
         custom: []
     cleanBodyParameters:
-      name: saepe
-      parent_company_id: 14
+      name: unde
+      parent_company_id: 6
     fileParameters: []
     responses: []
     responseFields: []
@@ -109,11 +109,11 @@ endpoints:
         name: company
         description: 'The ID of the company.'
         required: true
-        example: 11
+        example: 15
         type: integer
         custom: []
     cleanUrlParameters:
-      company: 11
+      company: 15
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -122,7 +122,7 @@ endpoints:
     responses:
       -
         status: 404
-        content: '{"message":"Not found","code":0,"error_message":"No query results for model [App\\Modules\\Company\\Models\\Company] 11"}'
+        content: '{"message":"Not found","code":0,"error_message":"No query results for model [App\\Modules\\Company\\Models\\Company] 15"}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
@@ -159,11 +159,11 @@ endpoints:
         name: company
         description: 'The ID of the company.'
         required: true
-        example: 3
+        example: 19
         type: integer
         custom: []
     cleanUrlParameters:
-      company: 3
+      company: 19
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -171,7 +171,7 @@ endpoints:
         name: name
         description: ''
         required: true
-        example: et
+        example: illum
         type: string
         custom: []
       parent_company_id:
@@ -182,7 +182,7 @@ endpoints:
         type: integer
         custom: []
     cleanBodyParameters:
-      name: et
+      name: illum
       parent_company_id: 18
     fileParameters: []
     responses: []
@@ -213,11 +213,11 @@ endpoints:
         name: company
         description: 'The ID of the company.'
         required: true
-        example: 19
+        example: 2
         type: integer
         custom: []
     cleanUrlParameters:
-      company: 19
+      company: 2
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
