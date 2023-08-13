@@ -20,6 +20,10 @@ final class CompanyUpdater extends AbstractCompanyUpdater
      */
     protected function validate(CompanyUpdateData $data): void
     {
+        if ($data->parent_company_id === null) {
+            return;
+        }
+
         if ($data->parent_company_id === $data->id) {
             throw ValidationException::withMessages(['parent_company_id' => self::VALIDATION_MESSAGE]);
         }
@@ -29,8 +33,6 @@ final class CompanyUpdater extends AbstractCompanyUpdater
         if ($company->parent_company_id === $data->id) {
             throw ValidationException::withMessages(['parent_company_id' => self::VALIDATION_PARENT_MESSAGE]);
         }
-
-        return;
     }
 
     protected function updateModel(Company $company, CompanyUpdateData $data): Company
